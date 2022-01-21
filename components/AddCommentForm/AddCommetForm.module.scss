@@ -1,0 +1,20 @@
+.commentForm {
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .field {
+    margin: 20px 0 10px;
+
+    &:after, &:before {
+      display: none;
+    }
+
+    padding: 17px !important;
+    background-color: #f7f7f7;
+    border: 1px solid rgba(0, 0, 0, .3) !important;
+    border-radius: 10px;
+    cursor: pointer !important;
+  }
+}

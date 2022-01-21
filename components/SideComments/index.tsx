@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ArrowRightIcon from '@material-ui/icons/NavigateNextOutlined';
 
 import styles from './SideComments.module.scss';
@@ -62,12 +62,21 @@ const CommentItem: React.FC<CommentItemProps> = ({user, text, post}) => {
 };
 
 export const SideComments = () => {
+    const [isVisible,setIsVisible] = useState(true)
+    const toggleVisible = () => {
+        setIsVisible(prev=>!prev)
+    }
+
     return (
-        <div className={styles.root}>
-            <h3>
-                Комментарии <ArrowRightIcon/>
-            </h3>
-            {items.map((obj) => (
+        <div className={isVisible?styles.root:styles.rootRotate}>
+            <div className={isVisible ? styles.commentTitle : styles.commentTitleRotate}>
+                <h3 onClick={toggleVisible}>
+                    Комментарии
+                </h3>
+                <ArrowRightIcon/>
+            </div>
+
+            {isVisible && items.map((obj) => (
                 <CommentItem key={obj.text} {...obj} />
             ))}
         </div>
