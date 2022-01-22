@@ -1,0 +1,19 @@
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.registration {
+  position: relative;
+  .registrationFields {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .buttonWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px;
+  }
+}
