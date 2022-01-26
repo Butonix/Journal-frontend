@@ -1,15 +1,28 @@
 import style from "../AuthDialog.module.scss";
+import {setCookie} from 'nookies';
 import {Button, TextField} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {LoginSchema} from "../../../utils/schemas/loginSchema";
+import {CreateUserDto, LoginUserDto} from "../../../utils/api/types";
+import {AuthService} from "../../../utils/api";
 
 export const AuthFormLogin = ({setForm}) => {
     const form = useForm({
-        mode:'onSubmit',
+        mode: 'onSubmit',
         resolver: yupResolver(LoginSchema)
     })
-    const onSubmit = data => console.log(data);
+    const onSubmit = async (dto: LoginUserDto) => {
+        try {
+            const data = await AuthService.login(dto)
+            setCookie(null, 'journalToken',data.access_token,{
+                maxAge:30*24*60*60,
+                path:'/'
+            })
+        } catch (e) {
+            alert('sorry')
+        }
+    }
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className={style.registration}>
