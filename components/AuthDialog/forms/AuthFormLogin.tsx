@@ -6,8 +6,11 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {LoginSchema} from "../../../utils/schemas/loginSchema";
 import {CreateUserDto, LoginUserDto} from "../../../utils/api/types";
 import {AuthService} from "../../../utils/api";
+import {useAppDispatch} from "../../../redux/hooks";
+import {setUserData} from "../../../redux/slices/user";
 
 export const AuthFormLogin = ({setForm}) => {
+    const dispatch = useAppDispatch()
     const form = useForm({
         mode: 'onSubmit',
         resolver: yupResolver(LoginSchema)
@@ -15,10 +18,11 @@ export const AuthFormLogin = ({setForm}) => {
     const onSubmit = async (dto: LoginUserDto) => {
         try {
             const data = await AuthService.login(dto)
-            setCookie(null, 'journalToken',data.access_token,{
-                maxAge:30*24*60*60,
-                path:'/'
+            setCookie(null, 'journalToken', data.access_token, {
+                maxAge: 30 * 24 * 60 * 60,
+                path: '/'
             })
+            dispatch(setUserData(data))
         } catch (e) {
             alert('sorry')
         }

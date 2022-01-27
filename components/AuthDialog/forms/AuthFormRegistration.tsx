@@ -14,8 +14,8 @@ export const AuthFormRegistration = ({setForm}) => {
 
     const onSubmit = async (dto:CreateUserDto) => {
         try {
-            //const data = await AuthService.registration(dto)
-            console.log(dto)
+            const data = await AuthService.registration(dto)
+            console.log(data)
         }catch (e){
             alert('sorry')
         }
