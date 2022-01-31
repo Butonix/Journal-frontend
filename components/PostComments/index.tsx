@@ -16,8 +16,11 @@ export const PostComments: React.FC<PostCommentsProps> = ({items}) => {
                 <Typography variant="h6" className="mb-20">
                     42 комментария
                 </Typography>
-                <Tabs onChange={(_, newValue) => setActiveTab(newValue)} className="mt-20" value={activeTab}
-                      indicatorColor="primary" textColor="primary">
+                <Tabs
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={(_, newValue) => setActiveTab(newValue)}
+                    value={activeTab}>
                     <Tab label="Популярные"/>
                     <Tab label="По порядку"/>
                 </Tabs>

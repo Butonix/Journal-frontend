@@ -52,7 +52,7 @@ export default function Profile() {
       </Paper>
       <div className="d-flex align-start">
         <div className="mr-20 flex">
-          <Post />
+         <Post title={'Это заголовок статьи'} id={1} description={'Это описание статьи (отображает первый абзац статьи)'} />
         </div>
         <Paper style={{ width: 300 }} className="p-20 mb-20" elevation={0}>
           <b>Подписчики</b>

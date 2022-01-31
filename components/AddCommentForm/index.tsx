@@ -10,7 +10,6 @@ export const AddCommentForm = () => {
         setText(e.target.value)
     }
     const onSubmit = () => {
-        console.log(text)
         setText('')
         setClicked(false)
     }

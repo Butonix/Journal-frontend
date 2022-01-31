@@ -4,8 +4,8 @@ import {Button, TextField} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {LoginSchema} from "../../../utils/schemas/loginSchema";
-import {CreateUserDto, LoginUserDto} from "../../../utils/api/types";
-import {AuthService} from "../../../utils/api";
+import {LoginUserDto} from "../../../utils/api/types";
+import {Api, AuthService} from "../../../utils/api";
 import {useAppDispatch} from "../../../redux/hooks";
 import {setUserData} from "../../../redux/slices/user";
 
@@ -17,7 +17,7 @@ export const AuthFormLogin = ({setForm}) => {
     })
     const onSubmit = async (dto: LoginUserDto) => {
         try {
-            const data = await AuthService.login(dto)
+            const data = await Api().auth.login(dto)
             setCookie(null, 'journalToken', data.access_token, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/'

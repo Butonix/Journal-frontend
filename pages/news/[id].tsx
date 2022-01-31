@@ -3,6 +3,8 @@ import {FullPost} from '../../components/FullPost';
 import {CommentProps} from '../../components/Comment';
 import React from 'react';
 import {PostComments} from '../../components/PostComments';
+import {GetServerSideProps} from "next";
+import {Api} from "../../utils/api";
 
 const items: Array<CommentProps> = [
     {
@@ -24,11 +26,29 @@ const items: Array<CommentProps> = [
         id: 2
     },
     ]
-export default function Home() {
+export default function Home({article}) {
     return (
         <MainLayout contentFullWidth>
-            <FullPost/>
+            <FullPost article={article}/>
             <PostComments items={items}/>
         </MainLayout>
     );
+}
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    try {
+        const id = ctx.params.id
+        const article = await Api().article.getArticlesById(+id)
+        return {
+            props: {article}
+        }
+    } catch (e) {
+        return {
+            props: {},
+            // redirect: {
+            //     destination: '/',
+            //     permanent: false,
+            // },
+        };
+
+    }
 }

@@ -3,7 +3,7 @@ import {Button, TextField} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {RegistrationSchema} from "../../../utils/schemas/RegistrationSchema";
-import {AuthService} from "../../../utils/api";
+import {Api, AuthService} from "../../../utils/api";
 import {CreateUserDto} from "../../../utils/api/types";
 
 export const AuthFormRegistration = ({setForm}) => {
@@ -14,8 +14,7 @@ export const AuthFormRegistration = ({setForm}) => {
 
     const onSubmit = async (dto:CreateUserDto) => {
         try {
-            const data = await AuthService.registration(dto)
-            console.log(data)
+            const data = await Api().auth.registration(dto)
         }catch (e){
             alert('sorry')
         }
