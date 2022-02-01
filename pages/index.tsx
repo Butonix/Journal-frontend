@@ -10,7 +10,7 @@ interface HomeProps {
 const Home:NextPage<HomeProps> = ({articles}) => {
     return (
         <MainLayout>
-            {articles.map(obj=><Post key={obj.id} id={obj.id} title={obj.title} description={obj.description}/>)}
+            {articles.map(obj=><Post key={obj.id} id={obj.id} title={obj.title} description={obj.description} user={obj.user}/>)}
         </MainLayout>
     );
 }

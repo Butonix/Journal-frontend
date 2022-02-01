@@ -1,74 +1,52 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ArrowRightIcon from '@material-ui/icons/NavigateNextOutlined';
 
 import styles from './SideComments.module.scss';
+import {ArticleResponse, LoginUserResponse} from "../../utils/api/types";
+import Avatar from '@material-ui/core/Avatar/Avatar';
+import {Api} from "../../utils/api";
 
-const items = [
-    {
-        user: {
-            fullname: 'Вася Пупкин',
-        },
-        text: 'Теперь, каждое рабочее утро, после кровати, я перекладываюсь туда спать ещё на часок. Ну и…',
-        post: {
-            title: 'Какая у вас дома ванна?',
-        },
-    },
-    {
-        user: {
-            fullname: 'Вася Пупкин',
-        },
-        text: 'Теперь, каждое рабочее утро, после кровати, я перекладываюсь туда спать ещё на часок. Ну и…',
-        post: {
-            title: 'Какая у вас дома ванна?',
-        },
-    },
-    {
-        user: {
-            fullname: 'Вася Пупкин',
-        },
-        text: 'Теперь, каждое рабочее утро, после кровати, я перекладываюсь туда спать ещё на часок. Ну и…',
-        post: {
-            title: 'Какая у вас дома ванна?',
-        },
-    },
-];
 
 interface CommentItemProps {
-    user: {
-        fullname: string;
-    };
+    user: LoginUserResponse
     text: string;
-    post: {
-        title: string;
-    };
+    title: string
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({user, text, post}) => {
+const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
     return (
         <div className={styles.commentItem}>
             <div className={styles.userInfo}>
-                <img
-                    src="https://leonardo.osnova.io/598fc957-a3f6-598c-b6f9-a033c3941d12/-/scale_crop/64x64/-/format/webp/"/>
+                <Avatar>
+                    {user.fullName[0]}
+                </Avatar>
                 <a href="#">
-                    <b>{user.fullname}</b>
+                    <b>{user.fullName}</b>
                 </a>
             </div>
             <p className={styles.text}>{text}</p>
             <a href="#">
-                <span className={styles.postTitle}>{post.title}</span>
+                <span className={styles.postTitle}>{title}</span>
             </a>
         </div>
     );
 };
 
 export const SideComments = () => {
-    const [isVisible,setIsVisible] = useState(true)
+    const [items, setItems] = useState([])
+    const [isVisible, setIsVisible] = useState(true)
+    useEffect(() => {
+        (async ()=>{
+            const comments = await Api().comment.getComments()
+            setItems(comments)
+        })()
+    }, [])
     const toggleVisible = () => {
-        setIsVisible(prev=>!prev)
+        setIsVisible(prev => !prev)
     }
 
     return (
-        <div className={isVisible?styles.root:styles.rootRotate}>
+        <div className={isVisible ? styles.root : styles.rootRotate}>
             <div className={isVisible ? styles.commentTitle : styles.commentTitleRotate}>
                 <h3 onClick={toggleVisible}>
                     Комментарии
@@ -76,8 +54,8 @@ export const SideComments = () => {
                 <ArrowRightIcon/>
             </div>
 
-            {isVisible && items.map((obj) => (
-                <CommentItem key={obj.text} {...obj} />
+            {isVisible && items.map((el) => (
+                <CommentItem key={el.id} text={el.text} user={el.user} title={el.article.title} />
             ))}
         </div>
     );

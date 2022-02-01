@@ -1,20 +1,33 @@
 import {Divider, Paper, Tab, Tabs, Typography} from "@material-ui/core";
 import {Comment, CommentProps} from "../Comment";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AddCommentForm} from "../AddCommentForm";
+import {Api} from "../../utils/api";
+import {CommentResponse} from "../../utils/api/types";
 
 interface PostCommentsProps {
-    items: Array<CommentProps>
+    articleId: number
 }
 
 
-export const PostComments: React.FC<PostCommentsProps> = ({items}) => {
+export const PostComments: React.FC<PostCommentsProps> = ({articleId}) => {
     const [activeTab, setActiveTab] = useState(0)
+    const [comments, setComments] = useState<CommentResponse[]>([])
+    useEffect( () => {
+        Api().comment.getComments(articleId)
+            .then(comments=>setComments(comments))
+    }, [])
+    const onAddComment = (newComment) => {
+        setComments(prev=>[newComment,...prev])
+    }
+    const onRemoveHandler = (id) => {
+        setComments(prev=>[...prev.filter(el=>el.id !== id)])
+    }
     return (
         <Paper elevation={0} className="mt-40 p-30">
             <div className="comment-container">
                 <Typography variant="h6" className="mb-20">
-                    42 комментария
+                    {comments.length} комментарий
                 </Typography>
                 <Tabs
                     indicatorColor="primary"
@@ -25,9 +38,10 @@ export const PostComments: React.FC<PostCommentsProps> = ({items}) => {
                     <Tab label="По порядку"/>
                 </Tabs>
                 <Divider/>
-                <AddCommentForm/>
+                <AddCommentForm onAddComment={onAddComment} articleId={articleId}/>
                 <div className="mb-20"/>
-                {items && items.map(el => <Comment
+                {comments && comments.map(el => <Comment
+                    onRemoveHandler={onRemoveHandler}
                     id={el.id}
                     createdAt={el.createdAt}
                     text={el.text}

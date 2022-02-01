@@ -24,14 +24,29 @@ export interface LoginUserResponse {
     fullName: string
     id: number
 }
+
 export interface ArticleResponse {
-    description:string
+    description: string
     title: string
     body: OutputData['blocks']
     tags?: Array<string> | null
-    id:number
-    views:number
-    updatedAt:string
-    createdAt:string
-    user:LoginUserResponse
+    id: number
+    views: number
+    updatedAt: string
+    createdAt: string
+    user: LoginUserResponse
+}
+
+export interface CreateCommentDto {
+    articleId: number
+    text: string
+}
+
+export interface CommentResponse {
+    id: number
+    text: string
+    article: ArticleResponse
+    user: LoginUserResponse
+    createdAt: string
+    updatedAt: string
 }

@@ -1,7 +1,14 @@
 import axios, {AxiosInstance} from "axios";
 import Cookies, {parseCookies} from 'nookies';
 import {GetServerSidePropsContext, NextPageContext} from "next";
-import {ArticleResponse, CreateArticleDto, CreateUserDto, LoginUserDto, LoginUserResponse} from "./types";
+import {
+    ArticleResponse, CommentResponse,
+    CreateArticleDto,
+    CreateCommentDto,
+    CreateUserDto,
+    LoginUserDto,
+    LoginUserResponse
+} from "./types";
 
 
 export const Api = (ctx?: NextPageContext | GetServerSidePropsContext) => {
@@ -16,7 +23,8 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext) => {
     });
     return {
         auth: AuthService(instance),
-        article: ArticleService(instance)
+        article: ArticleService(instance),
+        comment: CommentsService(instance)
     }
 }
 
@@ -48,12 +56,27 @@ export const ArticleService = (instance: AxiosInstance) => ({
         const {data} = await instance.post<CreateArticleDto, { data: ArticleResponse }>('articles', dto)
         return data
     },
-    async getArticlesById(id:number) {
+    async getArticlesById(id: number) {
         const {data} = await instance.get<ArticleResponse>(`articles/${id}`)
         return data
     },
-    async editArticle(dto: CreateArticleDto,id:number) {
+    async editArticle(dto: CreateArticleDto, id: number) {
         const {data} = await instance.patch<CreateArticleDto, { data: ArticleResponse }>(`articles/${id}`, dto)
+        return data
+    },
+})
+
+export const CommentsService = (instance: AxiosInstance) => ({
+    async createComment(comment) {
+        const {data} = await instance.post<CreateCommentDto, { data: CommentResponse }>('comments', comment)
+        return data
+    },
+    async getComments(articleId?) {
+        const {data} = await instance.get<number, { data: Array<CommentResponse> }>(articleId? `comments?articleId=${articleId}` : `comments`)
+        return data
+    },
+    async removeComment(commentId) {
+        const {data} = await instance.delete<number, { data: Array<CommentResponse> }>(`comments/${commentId}`)
         return data
     },
 })

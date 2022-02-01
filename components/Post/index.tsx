@@ -5,8 +5,7 @@ import Image from 'next/image';
 
 import styles from './Post.module.scss';
 import {PostActions} from '../PostActions';
-import {Output} from "@hapi/boom";
-import {OutputData} from "@editorjs/editorjs";
+import {LoginUserResponse} from "../../utils/api/types";
 
 interface PostProps {
     id: number
@@ -14,17 +13,25 @@ interface PostProps {
     description: string
     tags?: Array<string>
     imageUrl?: string
+    user:LoginUserResponse
 }
 
-export const Post: React.FC<PostProps> = ({id, title, description, tags,imageUrl}) => {
+export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUrl,user}) => {
     return (
         <Paper elevation={0} className="p-20" classes={{root: styles.paper}}>
             <Typography variant="h5" className={styles.title}>
-                <Link href={`/news/${id}`}>
-                    <a>
-                        {title}
-                    </a>
-                </Link>
+                <div className={styles.titleHeader}>
+                    <Link href={`/news/${id}`}>
+                        <a>
+                            {title}
+                        </a>
+                    </Link>
+                    <Link href={`/users/${1}`}>
+                        <a>
+                            {'qwdqwdqwdqwd'}
+                        </a>
+                    </Link>
+                </div>
             </Typography>
             <Typography className="mt-10 mb-15">
                 {description}
