@@ -7,7 +7,7 @@ import {
     CreateCommentDto,
     CreateUserDto,
     LoginUserDto,
-    LoginUserResponse
+    LoginUserResponse, UserResponse
 } from "./types";
 
 
@@ -24,7 +24,8 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext) => {
     return {
         auth: AuthService(instance),
         article: ArticleService(instance),
-        comment: CommentsService(instance)
+        comment: CommentsService(instance),
+        users:UsersService(instance)
     }
 }
 
@@ -77,6 +78,13 @@ export const CommentsService = (instance: AxiosInstance) => ({
     },
     async removeComment(commentId) {
         const {data} = await instance.delete<number, { data: Array<CommentResponse> }>(`comments/${commentId}`)
+        return data
+    },
+})
+
+export const UsersService = (instance: AxiosInstance) => ({
+    async getUserData(id:number) {
+        const {data} = await instance.get<{ data: UserResponse }>(`users/${id}`)
         return data
     },
 })

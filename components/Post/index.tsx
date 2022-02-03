@@ -26,9 +26,9 @@ export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUr
                             {title}
                         </a>
                     </Link>
-                    <Link href={`/users/${1}`}>
+                    <Link href={`/users/${user.id}`}>
                         <a>
-                            {'qwdqwdqwdqwd'}
+                            {user.fullName}
                         </a>
                     </Link>
                 </div>

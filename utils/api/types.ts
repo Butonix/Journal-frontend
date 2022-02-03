@@ -50,3 +50,11 @@ export interface CommentResponse {
     createdAt: string
     updatedAt: string
 }
+
+export interface UserResponse {
+    fullName?: string
+    email?: string
+    followers?: Array<number>
+    id?: number
+    password?: string
+}

@@ -2,17 +2,17 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 import {Avatar, Button, IconButton, Paper} from '@material-ui/core';
 import {
+    AccountCircleOutlined as UserIcon,
     ExpandMoreOutlined as ArrowBottom,
     Menu as MenuIcon,
     NotificationsNoneOutlined as NotificationIcon,
     SearchOutlined as SearchIcon,
-    SmsOutlined as MessageIcon,
-    AccountCircleOutlined as UserIcon
+    SmsOutlined as MessageIcon
 } from '@material-ui/icons';
 
 import styles from './Header.module.scss';
 import {AuthDialog} from "../AuthDialog/AuthDialog";
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
 
 export const Header: React.FC = () => {
@@ -59,13 +59,15 @@ export const Header: React.FC = () => {
                         <NotificationIcon/>
                     </IconButton>
                     {userData
-                        ? <Link href="/profile/1">
+                        ? <Link href={`/users/${userData.id}`}>
                             <a className="d-flex align-center">
                                 <Avatar
                                     className={styles.avatar}
                                     alt="Remy Sharp"
-                                    src="https://leonardo.osnova.io/5ffeac9a-a0e5-5be6-98af-659bfaabd2a6/-/scale_crop/108x108/-/format/webp/"
-                                />
+                                    src={''}
+                                >
+                                    {userData.fullName[0]}
+                                </Avatar>
                                 <ArrowBottom/>
                             </a>
                         </Link>
