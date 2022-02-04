@@ -35,7 +35,7 @@ export const Comment: React.FC<CommentProps> = ({user, text, createdAt, id, onRe
         <div className={styles.comment}>
             <div className={styles.userInfo}>
                 <Avatar
-                    //ToDo: аватарка
+                    src={user.avatarUrl}
                     alt="Avatar"
                 >{user.fullName[0]}</Avatar>
                 <b>{user.fullName}</b>

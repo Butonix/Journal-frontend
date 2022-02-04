@@ -34,7 +34,7 @@ export const FullPost = ({article}) => {
 
                     <div className="d-flex justify-between align-center mt-30 mb-30">
                         <div className={styles.userInfo}>
-                            <Avatar>{article.user.fullName[0]}</Avatar>
+                            <Avatar src={article.user.avatarUrl}>{article.user.fullName[0]}</Avatar>
                             <b>{article.user.fullName}</b>
                             <span>+1685</span>
                         </div>

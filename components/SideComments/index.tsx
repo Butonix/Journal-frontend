@@ -17,7 +17,7 @@ const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
     return (
         <div className={styles.commentItem}>
             <div className={styles.userInfo}>
-                <Avatar>
+                <Avatar src={user.avatarUrl} >
                     {user.fullName[0]}
                 </Avatar>
                 <a href="#">

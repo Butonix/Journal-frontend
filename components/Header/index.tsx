@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
                                 <Avatar
                                     className={styles.avatar}
                                     alt="Remy Sharp"
-                                    src={''}
+                                    src={userData.avatarUrl || ''}
                                 >
                                     {userData.fullName[0]}
                                 </Avatar>

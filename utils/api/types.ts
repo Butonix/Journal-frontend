@@ -23,6 +23,7 @@ export interface LoginUserResponse {
     followers: Array<number> | []
     fullName: string
     id: number
+    avatarUrl: string | null
 }
 
 export interface ArticleResponse {

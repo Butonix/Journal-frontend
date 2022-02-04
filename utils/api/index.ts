@@ -87,4 +87,8 @@ export const UsersService = (instance: AxiosInstance) => ({
         const {data} = await instance.get<{ data: UserResponse }>(`users/${id}`)
         return data
     },
+    async editUserProfile(obj) {
+        const {data} = await instance.patch<{ data: UserResponse }>(`users/me`,obj)
+        return data
+    },
 })
