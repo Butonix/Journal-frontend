@@ -47,6 +47,7 @@ export const WriteForm: NextPage<WriteFormProps> = ({data}) => {
                 classes={{root: styles.titleField}}
                 placeholder="Заголовок"
                 fullWidth
+                multiline
             />
             <div className={styles.editor}>
                 <Editor value={blocks} setBlocks={setBlocks}/>

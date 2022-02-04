@@ -14,18 +14,27 @@ export const FullPost = ({article}) => {
                     {article.title}
                 </Typography>
                 <div>
-                    {article.body.map(el =>
-                        <Typography key={el.id}>
-                            {el.data.text}
-                        </Typography>
+                    {article.body.map(el => {
+                            if (el.type === 'image') {
+                                return <div key={el.id} className={styles.editorImage}>
+                                    <img src={el.data.file.url}/>
+                                    {!!el.data.caption && el.data.caption}
+                                </div>
+                            } else if (el.type === 'paragraph') {
+                                return <Typography key={el.id}>
+                                    {el.data.text}
+                                </Typography>
+                            }
+                        }
                     )
                     }
                     <div style={{width: 250, marginLeft: -14}}>
                         <PostActions/>
                     </div>
+
                     <div className="d-flex justify-between align-center mt-30 mb-30">
                         <div className={styles.userInfo}>
-                            <Avatar >{article.user.fullName[0]}</Avatar>
+                            <Avatar>{article.user.fullName[0]}</Avatar>
                             <b>{article.user.fullName}</b>
                             <span>+1685</span>
                         </div>

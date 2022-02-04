@@ -16,7 +16,8 @@ interface PostProps {
     user:LoginUserResponse
 }
 
-export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUrl,user}) => {
+export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUrl,user,...obj}) => {
+    const firstImage = obj['body']?.find(el=> el.type === 'image')?.data.file.url
     return (
         <Paper elevation={0} className="p-20" classes={{root: styles.paper}}>
             <Typography variant="h5" className={styles.title}>
@@ -36,11 +37,7 @@ export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUr
             <Typography className="mt-10 mb-15">
                 {description}
             </Typography>
-            {imageUrl && <Image
-                src={imageUrl}
-                height={500}
-                width={600}
-            />}
+            {!!firstImage && <div className={styles.imageContainer}><img src={firstImage} alt=""/></div>}
             <PostActions/>
         </Paper>
     );

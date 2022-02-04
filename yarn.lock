@@ -1030,6 +1030,11 @@
     "codex-tooltip" "^1.0.2"
     "nanoid" "^3.1.22"
 
+"@editorjs/image@^2.6.2":
+  "integrity" "sha512-lai6LFJ8m3qRmSjio66o0CX7/75OupC3FQ5JWrV/biRT6GvUHtRNWKaMowKcC2ndXtfs4w6WwRxcXlB4WhUAdg=="
+  "resolved" "https://registry.npmjs.org/@editorjs/image/-/image-2.6.2.tgz"
+  "version" "2.6.2"
+
 "@emotion/hash@^0.8.0":
   "integrity" "sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow=="
   "resolved" "https://registry.npmjs.org/@emotion/hash/-/hash-0.8.0.tgz"

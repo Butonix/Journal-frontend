@@ -1,5 +1,7 @@
 import React, {useEffect} from "react";
 import EditorJS, {OutputData} from "@editorjs/editorjs";
+import ImageTool from '@editorjs/image';
+
 
 interface EditorProps {
     value?: OutputData['blocks']
@@ -17,6 +19,17 @@ export const Editor: React.FC<EditorProps> = ({setBlocks, value}) => {
             },
             data: {
                 blocks: value
+            },
+            tools:{
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                            byFile: 'http://localhost:7070/upload',
+                        },
+                        field:'file'
+                    }
+                }
             }
         })
         return () => {

@@ -11,7 +11,6 @@ import {Post} from "../../components/Post";
 
 export default function Profile({user}) {
     const currentUser = useAppSelector(selectUserData)
-    console.log(user)
     return (
         <MainLayout contentFullWidth hideComments>
             <Paper className="pl-20 pr-20 pt-20 mb-30" elevation={0}>
@@ -28,7 +27,7 @@ export default function Profile({user}) {
                     </div>
                     <div>
                         {currentUser && user.id === currentUser.id &&
-                            <Link href="/profile/settings">
+                            <Link href="/users/settings">
                                 <Button
                                     style={{height: 42, minWidth: 45, width: 45, marginRight: 10}}
                                     variant="contained">
@@ -58,7 +57,7 @@ export default function Profile({user}) {
             <div className="d-flex align-start">
                 <div className="mr-20 flex">
                     {
-                        user.articles.map(el=><Post key={el.id} title={el.title} user={user} description={el.description} id={el.id}/>)
+                        user.articles.map(el=><Post key={el.id} title={el.title} user={user} description={el.description} id={el.id} {...el}/>)
                     }
                 </div>
                 <Paper style={{width: 300}} className="p-20 mb-20" elevation={0}>
