@@ -1,15 +1,28 @@
 .titleField {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+
   input {
     font-size: 36px !important;
     font-weight: 600 !important;
   }
-  &:before,&:after{
-    display: none;
-  }
+
+  //&:before, &:after {
+  //  display: none;
+  //}
 }
-.editor{
-  font-size: 18px;
+
+.editor {
   line-height: 1.2;
+  padding: 90px;
+  font-size: 16px;
+}
+
+.writeForm {
+  background-color: #fff;
+  padding: 80px;
+  text-align: justify;
+}
+.editorWrapper{
+  margin-top: 15px;
 }
 

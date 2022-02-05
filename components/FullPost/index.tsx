@@ -18,10 +18,10 @@ export const FullPost = ({article}) => {
                             if (el.type === 'image') {
                                 return <div key={el.id} className={styles.editorImage}>
                                     <img src={el.data.file.url}/>
-                                    {!!el.data.caption && el.data.caption}
+                                    <span>{!!el.data.caption && el.data.caption}</span>
                                 </div>
                             } else if (el.type === 'paragraph') {
-                                return <Typography key={el.id}>
+                                return <Typography className={styles.paragraph} key={el.id}>
                                     {el.data.text}
                                 </Typography>
                             }

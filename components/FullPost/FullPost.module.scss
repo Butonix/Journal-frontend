@@ -38,13 +38,25 @@
     font-weight: 500;
   }
 }
-.editorImage{
+
+.editorImage {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  img{
-    width: 50%;
-    height: 10%;
+  margin: 20px 0;
+
+  img {
+    width: 90%;
   }
+
+  span {
+    margin-top: 15px;
+    color: #595959;
+    font-style: italic;
+  }
+}
+
+.paragraph {
+  text-align: justify;
 }

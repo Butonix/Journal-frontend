@@ -13,11 +13,16 @@ interface PostProps {
     description: string
     tags?: Array<string>
     imageUrl?: string
-    user:LoginUserResponse
+    user: LoginUserResponse
+    removeArticleHandler:(id:number)=>any
 }
 
-export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUrl,user,...obj}) => {
-    const firstImage = obj['body']?.find(el=> el.type === 'image')?.data.file.url
+export const Post: React.FC<PostProps> = ({removeArticleHandler,
+                                              id, title,
+                                              description, tags, imageUrl,
+                                              user, ...obj
+                                          }) => {
+    const firstImage = obj['body']?.find(el => el.type === 'image')?.data.file.url
     return (
         <Paper elevation={0} className="p-20" classes={{root: styles.paper}}>
             <Typography variant="h5" className={styles.title}>
@@ -38,7 +43,7 @@ export const Post: React.FC<PostProps> = ({id, title, description, tags, imageUr
                 {description}
             </Typography>
             {!!firstImage && <div className={styles.imageContainer}><img src={firstImage} alt=""/></div>}
-            <PostActions/>
+            <PostActions removeArticleHandler={removeArticleHandler} articleId={id} userId={user.id}/>
         </Paper>
     );
 };

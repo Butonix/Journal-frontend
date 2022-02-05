@@ -65,6 +65,10 @@ export const ArticleService = (instance: AxiosInstance) => ({
         const {data} = await instance.patch<CreateArticleDto, { data: ArticleResponse }>(`articles/${id}`, dto)
         return data
     },
+    async removeArticle(articleId: number) {
+        const {data} = await instance.delete<CreateArticleDto>(`articles/${articleId}`)
+        return data
+    },
 })
 
 export const CommentsService = (instance: AxiosInstance) => ({

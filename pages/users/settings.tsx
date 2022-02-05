@@ -11,6 +11,7 @@ export default function Settings() {
     const [avatarUrl, setAvatarUrl] = useState(userData.avatarUrl)
     const [fullName, setFullName] = useState(userData.fullName)
     const [email, setEmail] = useState(userData.email)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     const onSubmit = async (e) => {
@@ -23,14 +24,20 @@ export default function Settings() {
         }
     }
     const uploadImage = async (e) => {
-        const formData = new FormData()
-        formData.append('file', e.target.files[0])
-        const {data} = await axios.post('http://localhost:7070/upload', formData, {
-            headers: {
-                'Content-type': 'multipart/form-data',
-            }
-        })
-        setAvatarUrl(data.file.url)
+        try {
+            setIsLoading(true)
+            const formData = new FormData()
+            formData.append('file', e.target.files[0])
+            const {data} = await axios.post('http://localhost:7070/upload', formData, {
+                headers: {
+                    'Content-type': 'multipart/form-data',
+                }
+            })
+            setAvatarUrl(data.file.url)
+        }catch(e){
+            console.log(e)
+        }
+        setIsLoading(false)
     }
     return (
         <MainLayout hideComments>
@@ -56,7 +63,7 @@ export default function Settings() {
                     />
                     <Input type='file' onChange={e => uploadImage(e)}/>
                     <Divider className="mt-30 mb-20"/>
-                    <Button type='submit' color="primary" variant="contained">
+                    <Button disabled={isLoading} type='submit' color="primary" variant="contained">
                         Сохранить изменения
                     </Button>
                 </form>

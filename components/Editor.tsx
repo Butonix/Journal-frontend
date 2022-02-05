@@ -30,7 +30,8 @@ export const Editor: React.FC<EditorProps> = ({setBlocks, value}) => {
                         field:'file'
                     }
                 }
-            }
+            },
+            minHeight:50
         })
         return () => {
             editor.isReady
