@@ -36,6 +36,8 @@ export interface ArticleResponse {
     updatedAt: string
     createdAt: string
     user: LoginUserResponse
+    likes: Array<number>|[]
+    dislikes: Array<number>|[]
 }
 
 export interface CreateCommentDto {

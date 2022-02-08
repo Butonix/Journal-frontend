@@ -18,7 +18,6 @@ export default function Settings() {
         e.preventDefault()
         try {
             const response = await Api().users.editUserProfile({avatarUrl,fullName,email})
-            console.log(response)
         }catch (e) {
             alert('123')
         }

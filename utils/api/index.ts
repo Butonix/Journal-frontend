@@ -69,6 +69,14 @@ export const ArticleService = (instance: AxiosInstance) => ({
         const {data} = await instance.delete<CreateArticleDto>(`articles/${articleId}`)
         return data
     },
+    async likeArticle(articleId: number) {
+        const {data} = await instance.patch<CreateArticleDto>(`articles/${articleId}/like`)
+        return data
+    },
+    async dislikeArticle(articleId: number) {
+        const {data} = await instance.patch<CreateArticleDto>(`articles/${articleId}/dislike`)
+        return data
+    },
 })
 
 export const CommentsService = (instance: AxiosInstance) => ({
@@ -95,4 +103,13 @@ export const UsersService = (instance: AxiosInstance) => ({
         const {data} = await instance.patch<{ data: UserResponse }>(`users/me`,obj)
         return data
     },
+    async followUser(obj:{id:number}) {
+        const {data} = await instance.patch<{ data: UserResponse }>(`users/follow`,obj)
+        return data
+    },
+    async unfollowUser(obj:{id:number}) {
+        const {data} = await instance.patch<{ data: UserResponse }>(`users/unfollow`,obj)
+        return data
+    },
+
 })

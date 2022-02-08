@@ -1,6 +1,6 @@
 import {Avatar, Button, Paper, Typography} from '@material-ui/core';
 import React from 'react';
-import {PostActions} from '../PostActions';
+import {PostActions} from '../PostActions/PostActions';
 import MessageIcon from '@material-ui/icons/TextsmsOutlined';
 import UserAddIcon from '@material-ui/icons/PersonAddOutlined';
 
@@ -29,7 +29,12 @@ export const FullPost = ({article}) => {
                     )
                     }
                     <div style={{width: 250, marginLeft: -14}}>
-                        <PostActions/>
+                        <PostActions
+                            likes={article.likes}
+                            dislikes={article.dislikes}
+                            removeArticleHandler={()=>{}}
+                            articleId={article.id}
+                            userId={article.user.id} />
                     </div>
 
                     <div className="d-flex justify-between align-center mt-30 mb-30">

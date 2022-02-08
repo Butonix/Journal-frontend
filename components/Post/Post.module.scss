@@ -22,3 +22,18 @@
    width: 100%;
  }
 }
+
+.postWrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .postHeader{
+    display: flex;
+    justify-content: space-between;
+  }
+  .postHeaderUser{
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+  }
+}
