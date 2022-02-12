@@ -5,6 +5,7 @@ import {Avatar, Button, Paper, Typography} from '@material-ui/core';
 import styles from './Post.module.scss';
 import {PostActions} from '../PostActions/PostActions';
 import {LoginUserResponse} from "../../utils/api/types";
+import { FollowButton } from '../FollowButton';
 
 interface PostProps {
     id: number
@@ -37,9 +38,7 @@ export const Post: React.FC<PostProps> = ({
                         </div>
                     </Link>
                     <p>time</p>
-                    <Button>
-                        Подписаться +
-                    </Button>
+                    <FollowButton id={user.id}/>
                 </div>
                 <Typography variant="h5" className={styles.title}>
                     <div className={styles.titleHeader}>

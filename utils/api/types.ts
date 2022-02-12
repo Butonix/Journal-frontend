@@ -20,6 +20,7 @@ export interface LoginUserDto {
 export interface LoginUserResponse {
     access_token: string
     email: string
+    following: Array<number> | []
     followers: Array<number> | []
     fullName: string
     id: number

@@ -5,11 +5,13 @@ import {
 } from '@reduxjs/toolkit';
 import {userReducer} from "./slices/user";
 import {createWrapper, HYDRATE} from 'next-redux-wrapper';
+import {layoutReducer} from "./slices/layout";
 
 export function makeStore() {
     return configureStore({
         reducer: {
             user: userReducer,
+            layout: layoutReducer
         },
     });
 }

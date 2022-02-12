@@ -12,13 +12,15 @@ import {
 
 import styles from './Header.module.scss';
 import {AuthDialog} from "../AuthDialog/AuthDialog";
-import {useAppSelector} from "../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
+import {setLeftMenu, setRightMenu} from "../../redux/slices/layout";
 
 export const Header: React.FC = () => {
-
+    const dispatch = useAppDispatch()
     const userData = useAppSelector(selectUserData)
     const [authOpen, setAuthOpen] = useState(false)
+
 
     const handleClickOpen = () => {
         setAuthOpen(true)
@@ -26,11 +28,17 @@ export const Header: React.FC = () => {
     const handleClickClose = () => {
         setAuthOpen(false)
     }
+    const toggleLeftMenu = () => {
+        dispatch(setLeftMenu())
+    }
+    const rightCommentVisible = () => {
+        dispatch(setRightMenu())
+    }
     return (
         <div>
             <Paper classes={{root: styles.root}} elevation={0}>
                 <div className="d-flex align-center">
-                    <IconButton>
+                    <IconButton onClick={toggleLeftMenu}>
                         <MenuIcon/>
                     </IconButton>
                     <Link href="/">
@@ -52,7 +60,7 @@ export const Header: React.FC = () => {
 
                 </div>
                 <div className="d-flex align-center">
-                    <IconButton onClick={handleClickOpen}>
+                    <IconButton onClick={rightCommentVisible}>
                         <MessageIcon/>
                     </IconButton>
                     <IconButton>

@@ -52,6 +52,14 @@ export const ArticleService = (instance: AxiosInstance) => ({
         const {data} = await instance.get<ArticleResponse>('articles')
         return data
     },
+    async getPopular() {
+        const {data} = await instance.get<any>('articles/popular')
+        return data
+    },
+    async getFeed() {
+        const {data} = await instance.get<any>('articles/feed')
+        return data
+    },
 
     async sendArticle(dto: CreateArticleDto) {
         const {data} = await instance.post<CreateArticleDto, { data: ArticleResponse }>('articles', dto)
@@ -111,5 +119,19 @@ export const UsersService = (instance: AxiosInstance) => ({
         const {data} = await instance.patch<{ data: UserResponse }>(`users/unfollow`,obj)
         return data
     },
+    async getFollowers(id:number) {
+        const {data} = await instance.get(`users/${id}/followers`)
+        return data
+    },
+    async getFollowing(id:number) {
+        const {data} = await instance.get(`users/${id}/following`)
+        return data
+    },
+    async getAllUsers() {
+        const {data} = await instance.get(`users`)
+        return data
+    },
+
+
 
 })

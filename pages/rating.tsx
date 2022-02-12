@@ -47,7 +47,7 @@ export default function Rating() {
               </TableCell>
               <TableCell align="right">540</TableCell>
               <TableCell align="right">
-                <FollowButton />
+                {/*<FollowButton />*/}
               </TableCell>
             </TableRow>
           </TableBody>
