@@ -48,8 +48,8 @@ export const AuthService = (instance: AxiosInstance) => ({
 })
 
 export const ArticleService = (instance: AxiosInstance) => ({
-    async getArticles() {
-        const {data} = await instance.get<ArticleResponse>('articles')
+    async getArticles(take:number,page:number) {
+        const {data} = await instance.get<[Array<ArticleResponse>,number]>(`articles?take=${take}&page=${page}`)
         return data
     },
     async getPopular() {
@@ -127,8 +127,8 @@ export const UsersService = (instance: AxiosInstance) => ({
         const {data} = await instance.get(`users/${id}/following`)
         return data
     },
-    async getAllUsers() {
-        const {data} = await instance.get(`users`)
+    async getAllUsers(take:number = 10,page:number = 1) {
+        const {data} = await instance.get(`users?take=${take}&page=${page}`)
         return data
     },
 

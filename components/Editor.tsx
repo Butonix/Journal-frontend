@@ -20,18 +20,18 @@ export const Editor: React.FC<EditorProps> = ({setBlocks, value}) => {
             data: {
                 blocks: value
             },
-            tools:{
+            tools: {
                 image: {
                     class: ImageTool,
                     config: {
                         endpoints: {
                             byFile: 'http://localhost:7070/upload',
                         },
-                        field:'file'
+                        field: 'file'
                     }
                 }
             },
-            minHeight:50
+            minHeight: 50
         })
         return () => {
             editor.isReady
