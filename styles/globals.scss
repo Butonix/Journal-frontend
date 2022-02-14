@@ -41,3 +41,10 @@ a {
   width: 680px;
   margin: 0 auto;
 }
+.users-listItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border:1px solid rgba(0,0,0,.07)
+}

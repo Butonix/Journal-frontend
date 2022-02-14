@@ -1,33 +1,36 @@
 import {NextPage} from "next";
 import {useState} from "react";
+import {ArticlesList} from "../../components/ArticlesList";
 import {Post} from "../../components/Post";
 import {MainLayout} from "../../layouts/MainLayout";
 import {Api} from "../../utils/api";
+import {ArticleResponse} from "../../utils/api/types";
 
 interface PopularPageProps {
-    articles: Array<any>
+    articles: Array<ArticleResponse>
+    countArticles: number
 }
 
-const FeedPage: NextPage<PopularPageProps> = ({articles}) => {
-    const [arrayArticles, setArrayArticles] = useState(articles)
-    const removeArticleHandler = (id) => {
-        setArrayArticles(prev => [...prev.filter(el => el.id !== id)])
+const FeedPage: NextPage<PopularPageProps> = ({articles, countArticles}) => {
+    const requestHandler = async (limit: number, currentPage: number): Promise<[Array<ArticleResponse>, number]> => {
+        const [data, count] = await Api().article.getFeed(limit, currentPage)
+        return [data, count]
     }
     return (
         <MainLayout>
-            {arrayArticles && arrayArticles.map(obj => <Post removeArticleHandler={removeArticleHandler} key={obj.id}
-                                                             id={obj.id} title={obj.title}
-                                                             description={obj.description}
-                                                             user={obj.user} {...obj}/>)}
+            <ArticlesList articles={articles} count={countArticles} requestHandler={requestHandler}/>
         </MainLayout>
     );
 }
 
 export const getServerSideProps = async (ctx) => {
     try {
-        const articles = await Api(ctx).article.getFeed();
+        const [data, count] = await Api(ctx).article.getFeed();
         return {
-            props: {articles},
+            props: {
+                articles: data,
+                countArticles: count
+            },
         };
     } catch (err) {
         console.log(err);

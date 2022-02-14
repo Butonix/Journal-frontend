@@ -1,27 +1,38 @@
-import {Avatar, List, ListItem, makeStyles} from "@material-ui/core";
-import React from "react";
+import {Avatar, List, ListItem, makeStyles, Paper} from "@material-ui/core";
+import React, {useEffect} from "react";
 import styles from './UserList.module.scss'
 import {FollowButton} from "../FollowButton";
 import Link from "next/link";
-import { Pagination } from "@mui/material";
+import {Pagination} from "@mui/material";
+import {usePagination} from "../../hooks/usePagination";
 
-const useStyles = makeStyles(theme => ({
-    listItem: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '20px'
+
+export const UsersList = ({usersList, requestHandler, ...props}) => {
+    const {
+        take,
+        currentPage,
+        setData: setArrayArticles,
+        setCurrentPage,
+        data: arrayUsers,
+        pageCount
+    } = usePagination(usersList, usersList.length)
+
+    const changePageHandler = (_, value) => {
+        setCurrentPage(value)
     }
-}))
+    useEffect(() => {
+        (async () => {
+            const usersList = await requestHandler(take, currentPage)
+            setArrayArticles(usersList)
+        })()
+    }, [currentPage])
 
-export const UsersList = ({usersList, ...props}) => {
-    const classes = useStyles(props);
     return (
         <div>
-            <List style={{backgroundColor: '#fff'}}>
+            <Paper style={{backgroundColor: '#fff'}}>
                 {
-                    usersList && usersList.map(el =>
-                        <ListItem className={classes.listItem} key={el.id}>
+                    arrayUsers && arrayUsers.map(el =>
+                        <div className='users-listItem' key={el.id}>
                             <Link href={`/users/${el.id}`}>
                                 <div className={styles.listItemUser}>
                                     <Avatar src={el.avatarUrl}>{el.fullName[0]}</Avatar>
@@ -29,9 +40,14 @@ export const UsersList = ({usersList, ...props}) => {
                                 </div>
                             </Link>
                             <FollowButton id={el.id}/>
-                        </ListItem>)
+                        </div>)
                 }
-            </List>
+            </Paper>
+            <Pagination
+                defaultValue={currentPage}
+                onChange={changePageHandler}
+                count={pageCount}
+            />
         </div>
     )
 }

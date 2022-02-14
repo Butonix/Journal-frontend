@@ -25,7 +25,7 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext) => {
         auth: AuthService(instance),
         article: ArticleService(instance),
         comment: CommentsService(instance),
-        users:UsersService(instance)
+        users: UsersService(instance)
     }
 }
 
@@ -48,16 +48,16 @@ export const AuthService = (instance: AxiosInstance) => ({
 })
 
 export const ArticleService = (instance: AxiosInstance) => ({
-    async getArticles(take:number,page:number) {
-        const {data} = await instance.get<[Array<ArticleResponse>,number]>(`articles?take=${take}&page=${page}`)
+    async getArticles(take: number = 10, page: number = 1) {
+        const {data} = await instance.get<[Array<ArticleResponse>, number]>(`articles?take=${take}&page=${page}`)
         return data
     },
-    async getPopular() {
-        const {data} = await instance.get<any>('articles/popular')
+    async getPopular(take: number = 10, page: number = 1) {
+        const {data} = await instance.get<any>(`articles/popular?take=${take}&page=${page}`)
         return data
     },
-    async getFeed() {
-        const {data} = await instance.get<any>('articles/feed')
+    async getFeed(take = 10, currentPage = 1) {
+        const {data} = await instance.get<any>(`articles/feed?take=${take}&page=${currentPage}`)
         return data
     },
 
@@ -93,7 +93,7 @@ export const CommentsService = (instance: AxiosInstance) => ({
         return data
     },
     async getComments(articleId?) {
-        const {data} = await instance.get<number, { data: Array<CommentResponse> }>(articleId? `comments?articleId=${articleId}` : `comments`)
+        const {data} = await instance.get<number, { data: Array<CommentResponse> }>(articleId ? `comments?articleId=${articleId}` : `comments`)
         return data
     },
     async removeComment(commentId) {
@@ -103,35 +103,32 @@ export const CommentsService = (instance: AxiosInstance) => ({
 })
 
 export const UsersService = (instance: AxiosInstance) => ({
-    async getUserData(id:number) {
+    async getUserData(id: number) {
         const {data} = await instance.get<{ data: UserResponse }>(`users/${id}`)
         return data
     },
     async editUserProfile(obj) {
-        const {data} = await instance.patch<{ data: UserResponse }>(`users/me`,obj)
+        const {data} = await instance.patch<{ data: UserResponse }>(`users/me`, obj)
         return data
     },
-    async followUser(obj:{id:number}) {
-        const {data} = await instance.patch<{ data: UserResponse }>(`users/follow`,obj)
+    async followUser(obj: { id: number }) {
+        const {data} = await instance.patch<{ data: UserResponse }>(`users/follow`, obj)
         return data
     },
-    async unfollowUser(obj:{id:number}) {
-        const {data} = await instance.patch<{ data: UserResponse }>(`users/unfollow`,obj)
+    async unfollowUser(obj: { id: number }) {
+        const {data} = await instance.patch<{ data: UserResponse }>(`users/unfollow`, obj)
         return data
     },
-    async getFollowers(id:number) {
-        const {data} = await instance.get(`users/${id}/followers`)
+    async getFollowers(id: number,take:number = 10,page:number=1) {
+        const {data} = await instance.get(`users/${id}/followers?take=${take}&page=${page}`)
         return data
     },
-    async getFollowing(id:number) {
-        const {data} = await instance.get(`users/${id}/following`)
+    async getFollowing(id: number,take:number = 10,page:number=1) {
+        const {data} = await instance.get(`users/${id}/following?take=${take}&page=${page}`)
         return data
     },
-    async getAllUsers(take:number = 10,page:number = 1) {
+    async getAllUsers(take: number = 10, page: number = 1) {
         const {data} = await instance.get(`users?take=${take}&page=${page}`)
         return data
     },
-
-
-
 })
