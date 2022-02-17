@@ -7,14 +7,17 @@ import {
     Menu as MenuIcon,
     NotificationsNoneOutlined as NotificationIcon,
     SearchOutlined as SearchIcon,
-    SmsOutlined as MessageIcon
+    SmsOutlined as MessageIcon,
+    Send
 } from '@material-ui/icons';
+
 
 import styles from './Header.module.scss';
 import {AuthDialog} from "../AuthDialog/AuthDialog";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
 import {setLeftMenu, setRightMenu} from "../../redux/slices/layout";
+import {SearchBlock} from "../SearchBlock";
 
 export const Header: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -47,10 +50,7 @@ export const Header: React.FC = () => {
                         </a>
                     </Link>
 
-                    <div className={styles.searchBlock}>
-                        <SearchIcon/>
-                        <input placeholder="Поиск"/>
-                    </div>
+                    <SearchBlock />
 
                     <Link href='/write'>
                         <Button variant="contained" className={styles.penButton}>

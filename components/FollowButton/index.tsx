@@ -30,7 +30,6 @@ export const FollowButton: React.FC<FollowButtonProps> = ({id}) => {
             variant="contained"
             >
             {!followed ? <AddIcon/> : <CheckIcon style={{fontSize: 20, color: '#2ea83a'}}/>}
-            {!followed ? 'Подписаться' : 'Отменить подписку'}
         </Button>
     );
 };

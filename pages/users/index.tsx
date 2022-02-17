@@ -3,14 +3,15 @@ import {UsersList} from "../../components/UsersList";
 import React from "react";
 import {Api} from "../../utils/api";
 
-export default function UsersPage({users}) {
-    const requestHandler = async (take,page) => {
-        return await Api().users.getAllUsers(take,page)
+export default function UsersPage({users, totalCount, keyword}) {
+    const requestHandler = async (take, page) => {
+        const [data, count] = await Api().users.getAllUsers(take, page, keyword)
+        return [data, count]
     }
-    console.log(users)
+
     return (
         <MainLayout>
-            <UsersList usersList={users} requestHandler={requestHandler}/>
+            <UsersList usersList={users} requestHandler={requestHandler} keyword={keyword} count={totalCount}/>
         </MainLayout>
     )
 }
@@ -18,10 +19,12 @@ export default function UsersPage({users}) {
 export const getServerSideProps = async (ctx) => {
     try {
 
-        const users = await Api().users.getAllUsers();
+        const [data, count] = await Api().users.getAllUsers(10, 1, ctx.query.keyword);
         return {
             props: {
-                users
+                users: data,
+                totalCount: count,
+                keyword: ctx.query.keyword || ''
             },
         };
     } catch (err) {

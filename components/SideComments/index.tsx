@@ -5,6 +5,7 @@ import styles from './SideComments.module.scss';
 import {ArticleResponse, LoginUserResponse} from "../../utils/api/types";
 import Avatar from '@material-ui/core/Avatar/Avatar';
 import {Api} from "../../utils/api";
+import {Paper} from "@mui/material";
 
 
 interface CommentItemProps {
@@ -15,7 +16,7 @@ interface CommentItemProps {
 
 const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
     return (
-        <div className={styles.commentItem}>
+        <Paper className={styles.commentItem}>
             <div className={styles.userInfo}>
                 <Avatar src={user.avatarUrl} >
                     {user.fullName[0]}
@@ -28,7 +29,7 @@ const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
             <a href="#">
                 <span className={styles.postTitle}>{title}</span>
             </a>
-        </div>
+        </Paper>
     );
 };
 

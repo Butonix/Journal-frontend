@@ -85,6 +85,10 @@ export const ArticleService = (instance: AxiosInstance) => ({
         const {data} = await instance.patch<CreateArticleDto>(`articles/${articleId}/dislike`)
         return data
     },
+    async searchArticles(title: string, take: number = 10, page: number = 1) {
+        const {data} = await instance.get<ArticleResponse>(`articles/search/?take=${take}&page=${page}&title=${title}`)
+        return data
+    },
 })
 
 export const CommentsService = (instance: AxiosInstance) => ({
@@ -119,16 +123,21 @@ export const UsersService = (instance: AxiosInstance) => ({
         const {data} = await instance.patch<{ data: UserResponse }>(`users/unfollow`, obj)
         return data
     },
-    async getFollowers(id: number,take:number = 10,page:number=1) {
+    async getFollowers(id: number, take: number = 10, page: number = 1) {
         const {data} = await instance.get(`users/${id}/followers?take=${take}&page=${page}`)
         return data
     },
-    async getFollowing(id: number,take:number = 10,page:number=1) {
+    async getFollowing(id: number, take: number = 10, page: number = 1) {
         const {data} = await instance.get(`users/${id}/following?take=${take}&page=${page}`)
         return data
     },
-    async getAllUsers(take: number = 10, page: number = 1) {
-        const {data} = await instance.get(`users?take=${take}&page=${page}`)
+    async getAllUsers( take: number = 10, page: number = 1,keyword: string = '') {
+        const keywordStr = keyword ? `keyword=${keyword}&`: ''
+        const {data} = await instance.get(`users?${keywordStr}take=${take}&page=${page}`)
         return data
     },
+    // async searchUsers(fullName: string, take: number = 10, page: number = 1) {
+    //     const {data} = await instance.get(`/users/search?fullName=${fullName}&take=${take}&page=${page}`)
+    //     return data
+    // },
 })

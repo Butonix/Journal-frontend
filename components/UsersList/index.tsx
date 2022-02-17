@@ -5,27 +5,32 @@ import {FollowButton} from "../FollowButton";
 import Link from "next/link";
 import {Pagination} from "@mui/material";
 import {usePagination} from "../../hooks/usePagination";
+import {getTotalPages} from "../../utils/pagination/getTotalPages";
+import {useRouter} from "next/router";
 
+export const UsersList = ({usersList, requestHandler, keyword='', count, ...props}) => {
 
-export const UsersList = ({usersList, requestHandler, ...props}) => {
     const {
         take,
         currentPage,
         setData: setArrayArticles,
         setCurrentPage,
         data: arrayUsers,
-        pageCount
-    } = usePagination(usersList, usersList.length)
+        pageCount,
+        setPageCount
+    } = usePagination(usersList, count)
 
     const changePageHandler = (_, value) => {
         setCurrentPage(value)
     }
+
     useEffect(() => {
         (async () => {
-            const usersList = await requestHandler(take, currentPage)
-            setArrayArticles(usersList)
+            const usersList = await requestHandler(take, currentPage,keyword)
+            setArrayArticles(usersList[0])
+            setPageCount(getTotalPages(usersList[1], take))
         })()
-    }, [currentPage])
+    }, [currentPage, requestHandler, pageCount])
 
     return (
         <div>
