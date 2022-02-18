@@ -50,7 +50,7 @@ export default function Profile({user}) {
                                     <SettingsIcon/>
                                 </Button>
                             </Link>}
-                        {!currentUser.id === user.id && <FollowButton id={user.id}/>}
+                        {!currentUser?.id === user.id && <FollowButton id={user.id}/>}
                     </div>
                 </div>
                 <div>

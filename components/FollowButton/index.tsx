@@ -25,11 +25,13 @@ export const FollowButton: React.FC<FollowButtonProps> = ({id}) => {
         setFollowed(prev => !prev)
     }
     return (
-        <Button
-            onClick={toggleFollow}
-            variant="contained"
+        <div>
+            {currentUser && <Button
+                onClick={toggleFollow}
+                variant="contained"
             >
-            {!followed ? <AddIcon/> : <CheckIcon style={{fontSize: 20, color: '#2ea83a'}}/>}
-        </Button>
-    );
-};
+                {!followed ? <AddIcon/> : <CheckIcon style={{fontSize: 20, color: '#2ea83a'}}/>}
+            </Button>}
+        </div>
+    )
+}

@@ -5,10 +5,7 @@ import {
     AccountCircleOutlined as UserIcon,
     ExpandMoreOutlined as ArrowBottom,
     Menu as MenuIcon,
-    NotificationsNoneOutlined as NotificationIcon,
-    SearchOutlined as SearchIcon,
-    SmsOutlined as MessageIcon,
-    Send
+    SmsOutlined as MessageIcon
 } from '@material-ui/icons';
 
 
@@ -40,7 +37,7 @@ export const Header: React.FC = () => {
     return (
         <div>
             <Paper classes={{root: styles.root}} elevation={0}>
-                <div className="d-flex align-center">
+                <div className={styles.leftSide}>
                     <IconButton onClick={toggleLeftMenu}>
                         <MenuIcon/>
                     </IconButton>
@@ -49,22 +46,18 @@ export const Header: React.FC = () => {
                             <img height={35} className="mr-20" src="/static/img/logo.svg" alt="Logo"/>
                         </a>
                     </Link>
-
-                    <SearchBlock />
-
                     <Link href='/write'>
                         <Button variant="contained" className={styles.penButton}>
                             Новая запись
                         </Button>
                     </Link>
+                    <SearchBlock/>
 
                 </div>
+
                 <div className="d-flex align-center">
                     <IconButton onClick={rightCommentVisible}>
                         <MessageIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <NotificationIcon/>
                     </IconButton>
                     {userData
                         ? <Link href={`/users/${userData.id}`}>

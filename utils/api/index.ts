@@ -48,8 +48,9 @@ export const AuthService = (instance: AxiosInstance) => ({
 })
 
 export const ArticleService = (instance: AxiosInstance) => ({
-    async getArticles(take: number = 10, page: number = 1) {
-        const {data} = await instance.get<[Array<ArticleResponse>, number]>(`articles?take=${take}&page=${page}`)
+    async getArticles(take: number = 10, page: number = 1, keyword: string = '') {
+        const keywordStr = keyword ? `keyword=${keyword}&` : ''
+        const {data} = await instance.get<[Array<ArticleResponse>, number]>(`articles?${keywordStr}take=${take}&page=${page}`)
         return data
     },
     async getPopular(take: number = 10, page: number = 1) {
@@ -131,8 +132,8 @@ export const UsersService = (instance: AxiosInstance) => ({
         const {data} = await instance.get(`users/${id}/following?take=${take}&page=${page}`)
         return data
     },
-    async getAllUsers( take: number = 10, page: number = 1,keyword: string = '') {
-        const keywordStr = keyword ? `keyword=${keyword}&`: ''
+    async getAllUsers(take: number = 10, page: number = 1, keyword: string = '') {
+        const keywordStr = keyword ? `keyword=${keyword}&` : ''
         const {data} = await instance.get(`users?${keywordStr}take=${take}&page=${page}`)
         return data
     },
