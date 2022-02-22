@@ -45,7 +45,6 @@ export const Comment: React.FC<CommentProps> = ({user, text, createdAt, id, onRe
                 {text}
             </Typography>
             {currentUserId === user.id && <>
-                <span className={styles.replyBtn}>Ответить</span>
                 <IconButton onClick={handleClick}>
                     <MoreIcon/>
                 </IconButton>
@@ -56,7 +55,6 @@ export const Comment: React.FC<CommentProps> = ({user, text, createdAt, id, onRe
                     onClose={handleClose}
                     keepMounted>
                     <MenuItem onClick={() => onRemoveComment(id)}>Удалить</MenuItem>
-                    <MenuItem onClick={handleClose}>Редактировать</MenuItem>
                 </Menu>
             </>}
         </div>

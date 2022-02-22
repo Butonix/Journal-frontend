@@ -13,6 +13,7 @@ import styles from './LeftMenu.module.scss';
 import {useRouter} from "next/router";
 import {useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
+import Paper from '@mui/material/Paper';
 
 
 export const LeftMenu: React.FC = () => {
@@ -30,14 +31,16 @@ export const LeftMenu: React.FC = () => {
             <ul>
                 {menu.map((obj) => (
                     <li key={obj.path}>
-                        <Link href={obj.path}>
-                            <a>
-                                <Button variant={router.pathname === obj.path ? 'outlined' : 'text'}>
-                                    {obj.icon}
-                                    {obj.text}
-                                </Button>
-                            </a>
-                        </Link>
+                       <Paper>
+                           <Link href={obj.path}>
+                               <a>
+                                   <Button variant={router.pathname === obj.path ? 'outlined' : 'text'}>
+                                       {obj.icon}
+                                       {obj.text}
+                                   </Button>
+                               </a>
+                           </Link>
+                       </Paper>
                     </li>
                 ))}
             </ul>

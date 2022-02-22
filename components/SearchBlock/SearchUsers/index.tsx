@@ -7,7 +7,7 @@ import Link from "next/link";
 import {FollowButton} from "../../FollowButton";
 import React from "react";
 
-export const SearchUsers = ({usersData, searchHandler, searchStr, setSearchStr, setArray,toggleOption}) => {
+export const SearchUsers = ({usersData, searchHandler, searchStr, setSearchStr, setArray, toggleOption}) => {
     return (
         <div>
             <div className={styles.searchWrapper}>

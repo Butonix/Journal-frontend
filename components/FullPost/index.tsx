@@ -17,7 +17,7 @@ export const FullPost = ({article}) => {
                     {article.body.map(el => {
                             if (el.type === 'image') {
                                 return <div key={el.id} className={styles.editorImage}>
-                                    <img src={el.data.file.url}/>
+                                    <img alt={el.data.caption} src={el.data.file.url}/>
                                     <span>{!!el.data.caption && el.data.caption}</span>
                                 </div>
                             } else if (el.type === 'paragraph') {
@@ -32,9 +32,10 @@ export const FullPost = ({article}) => {
                         <PostActions
                             likes={article.likes}
                             dislikes={article.dislikes}
-                            removeArticleHandler={()=>{}}
+                            removeArticleHandler={() => {
+                            }}
                             articleId={article.id}
-                            userId={article.user.id} />
+                            userId={article.user.id}/>
                     </div>
 
                     <div className="d-flex justify-between align-center mt-30 mb-30">

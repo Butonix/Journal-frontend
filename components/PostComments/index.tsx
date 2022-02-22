@@ -11,7 +11,6 @@ interface PostCommentsProps {
 
 
 export const PostComments: React.FC<PostCommentsProps> = ({articleId}) => {
-    const [activeTab, setActiveTab] = useState(0)
     const [comments, setComments] = useState<CommentResponse[]>([])
     useEffect( () => {
         Api().comment.getComments(articleId)
@@ -29,14 +28,6 @@ export const PostComments: React.FC<PostCommentsProps> = ({articleId}) => {
                 <Typography variant="h6" className="mb-20">
                     {comments.length} комментарий
                 </Typography>
-                <Tabs
-                    indicatorColor="primary"
-                    textColor="primary"
-                    onChange={(_, newValue) => setActiveTab(newValue)}
-                    value={activeTab}>
-                    <Tab label="Популярные"/>
-                    <Tab label="По порядку"/>
-                </Tabs>
                 <Divider/>
                 <AddCommentForm onAddComment={onAddComment} articleId={articleId}/>
                 <div className="mb-20"/>

@@ -14,9 +14,9 @@ interface CommentItemProps {
     title: string
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
+export const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
     return (
-        <Paper className={styles.commentItem}>
+        <Paper className={styles.commentItem} elevation={8} >
             <div className={styles.userInfo}>
                 <Avatar src={user.avatarUrl} >
                     {user.fullName[0]}
@@ -42,19 +42,9 @@ export const SideComments = () => {
             setItems(comments)
         })()
     }, [])
-    const toggleVisible = () => {
-        setIsVisible(prev => !prev)
-    }
 
     return (
         <div className={isVisible ? styles.root : styles.rootRotate}>
-            <div className={isVisible ? styles.commentTitle : styles.commentTitleRotate}>
-                <h3 onClick={toggleVisible}>
-                    Комментарии
-                </h3>
-                <ArrowRightIcon/>
-            </div>
-
             {isVisible && items.map((el) => (
                 <CommentItem key={el.id} text={el.text} user={el.user} title={el.article.title} />
             ))}

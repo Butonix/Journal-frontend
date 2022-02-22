@@ -19,7 +19,6 @@ export const getServerSideProps = async (ctx) => {
     try {
 
         const [users, count] = await Api().users.getAllUsers(ctx.query.fullName);
-        console.log(users, count)
         return {
             props: {
                 users,

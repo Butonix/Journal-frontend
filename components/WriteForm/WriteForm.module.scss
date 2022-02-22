@@ -19,10 +19,11 @@
 
 .writeForm {
   background-color: #fff;
-  padding: 80px;
+  padding: 16px 80px;
   text-align: justify;
 }
 .editorWrapper{
+  min-height: 100vh;
   margin-top: 15px;
 }
 

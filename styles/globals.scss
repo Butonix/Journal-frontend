@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: #f2f2f2 !important;
+  background-color: #e2e2e8 !important;
   font-family: Roboto, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
@@ -19,19 +19,21 @@ a {
 }
 
 .content {
-  max-width: 640px;
-  width: 100%;
+  padding: 0 75px;
   margin: 0 auto;
+  min-height: 100%;
+  width: clamp(720px,1000px,1240px);
 
   &--full {
-    max-width: 1000px;
+    width: clamp(720px,1000px,1240px);
   }
 }
 
 .wrapper {
   display: flex;
-  padding: 0 30px;
-  padding-top: 80px;
+  padding: 80px 30px 0;
+  margin: 0 auto;
+  background-color: #e2e2e8;
 }
 
 .main-layout--white {

@@ -1,15 +1,19 @@
 import Link from 'next/link';
-import {Avatar, Button, Paper, Tab, Tabs, Typography} from '@material-ui/core';
-import {SettingsOutlined as SettingsIcon, TextsmsOutlined as MessageIcon, AddBox} from '@material-ui/icons';
+import {Avatar, Button, Paper, Typography} from '@material-ui/core';
+import {TabContext, TabList, TabPanel} from '@mui/lab';
+import Tab from '@mui/material/Tab';
+import {SettingsOutlined as SettingsIcon} from '@material-ui/icons';
 import {MainLayout} from '../../../layouts/MainLayout';
 import {Api} from "../../../utils/api";
-import {GetServerSideProps, NextPage} from "next";
+import {GetServerSideProps} from "next";
 import {useAppSelector} from "../../../redux/hooks";
 import {selectUserData} from "../../../redux/slices/user";
 import {Post} from "../../../components/Post";
 import {ArticleResponse} from "../../../utils/api/types";
-import {useState} from "react";
 import {FollowButton} from "../../../components/FollowButton";
+import {useState} from 'react';
+import {CommentsList} from "../../../components/CommentsList";
+import Box from '@mui/material/Box';
 
 
 interface ProfilePageProps {
@@ -24,11 +28,15 @@ interface ProfilePageProps {
 }
 
 export default function Profile({user}) {
+    const [tabIndex, setTabIndex] = useState('0');
+    const handleChange = (event, newValue) => {
+        setTabIndex(newValue);
+    };
     const currentUser = useAppSelector(selectUserData)
 
     return (
         <MainLayout contentFullWidth hideComments>
-            <Paper className="pl-20 pr-20 pt-20 mb-30" elevation={0}>
+            <Paper className="pl-20 pr-20 pt-20 mb-5" elevation={0}>
                 <div className="d-flex justify-between">
                     <div className='mb-25'>
                         <Avatar
@@ -43,7 +51,7 @@ export default function Profile({user}) {
                     </div>
                     <div>
                         {currentUser && user.id === currentUser.id &&
-                            <Link href="/users/settings">
+                            <Link href='/users/settings'>
                                 <Button
                                     style={{height: 42, minWidth: 45, width: 45, marginRight: 10}}
                                     variant="contained">
@@ -71,21 +79,28 @@ export default function Profile({user}) {
 
                 </div>
                 <Typography>На проекте с 15 сен 2016</Typography>
-
-                <Tabs className="mt-20" value={0} indicatorColor="primary" textColor="primary">
-                    <Tab label="Статьи"/>
-                    <Tab label="Комментарии"/>
-                    <Tab label="Закладки"/>
-                </Tabs>
+               <Box>
+                   <TabContext value={tabIndex}>
+                       <TabList onChange={handleChange} indicatorColor="primary" textColor="primary" variant="fullWidth">
+                           <Tab label="Статьи" value={'0'} />
+                           <Tab label="Комментарии" value={'1'}/>
+                       </TabList>
+                       <TabPanel value="0">
+                           <div className="d-flex align-start">
+                               <div className="flex">
+                                   {
+                                       user.articles.map(el => <Post key={el.id} title={el.title} user={user}
+                                                                     description={el.description} id={el.id} {...el}/>)
+                                   }
+                               </div>
+                           </div>
+                       </TabPanel>
+                       <TabPanel value="1">
+                           <CommentsList userId={user.id}/>
+                       </TabPanel>
+                   </TabContext>
+               </Box>
             </Paper>
-            <div className="d-flex align-start">
-                <div className="flex">
-                    {
-                        user.articles.map(el => <Post key={el.id} title={el.title} user={user}
-                                                      description={el.description} id={el.id} {...el}/>)
-                    }
-                </div>
-            </div>
         </MainLayout>
     );
 }

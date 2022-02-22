@@ -97,8 +97,12 @@ export const CommentsService = (instance: AxiosInstance) => ({
         const {data} = await instance.post<CreateCommentDto, { data: CommentResponse }>('comments', comment)
         return data
     },
-    async getComments(articleId?) {
+    async getComments(articleId?:number) {
         const {data} = await instance.get<number, { data: Array<CommentResponse> }>(articleId ? `comments?articleId=${articleId}` : `comments`)
+        return data
+    },
+    async getCommentsByUserId(userId?:number) {
+        const {data} = await instance.get<number, { data: Array<CommentResponse> }>( `comments/u?userId=${userId}`)
         return data
     },
     async removeComment(commentId) {

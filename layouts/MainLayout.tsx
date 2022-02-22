@@ -4,6 +4,7 @@ import {LeftMenu} from '../components/LeftMenu';
 import {SideComments} from '../components/SideComments';
 import {useAppSelector} from "../redux/hooks";
 import {selectLeftMenu, selectRightMenu} from "../redux/slices/layout";
+import Paper from '@mui/material/Paper';
 
 interface MainLayoutProps {
     hideComments?: boolean;

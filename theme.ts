@@ -18,6 +18,7 @@ export const theme = createTheme({
       },
     },
     MuiPopover: {},
+    MuiIconButton:{},
     MuiButton: {
       root: {
         borderRadius: '8px',

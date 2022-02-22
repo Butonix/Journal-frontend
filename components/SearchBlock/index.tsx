@@ -7,6 +7,7 @@ import React, {useState} from "react";
 import {Api} from "../../utils/api";
 import {SearchUsers} from "./SearchUsers";
 import {SearchArticles} from "./SearchArticles";
+import {theme} from "../../theme";
 
 export const SearchBlock = () => {
     const [searchOption, setSearchOption] = useState<'users' | 'articles' | null>(null)
@@ -27,30 +28,31 @@ export const SearchBlock = () => {
             setSearchStr('')
         }
     }
-    console.log(searchOption)
     return (
         <div>
             {
                 !searchOption &&
                 <div className={styles.searchOptionButtonWrapper}>
                     <IconButton onClick={toggleOption('users')}>
-                        <PersonSearchIcon color={"warning"}/>
-                    </IconButton>
+                        <PersonSearchIcon/>
+                    </IconButton >
                     <IconButton onClick={toggleOption('articles')}>
-                        <ManageSearchIcon color={"warning"}/>
+                        <ManageSearchIcon/>
                     </IconButton>
                 </div>
             }
             {
                 searchOption === 'users' &&
 
-                <SearchUsers toggleOption={toggleOption(null)} usersData={array} searchHandler={searchUsers} searchStr={searchStr}
+                <SearchUsers toggleOption={toggleOption(null)} usersData={array} searchHandler={searchUsers}
+                             searchStr={searchStr}
                              setSearchStr={setSearchStr} setArray={setArray}/>
 
             }
             {
                 searchOption === 'articles' &&
-                <SearchArticles toggleOption={toggleOption(null)} articlesData={array} searchHandler={searchArticles} searchStr={searchStr}
+                <SearchArticles toggleOption={toggleOption(null)} articlesData={array} searchHandler={searchArticles}
+                                searchStr={searchStr}
                                 setSearchStr={setSearchStr} setArray={setArray}/>
             }
         </div>

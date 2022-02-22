@@ -6,7 +6,7 @@ import styles from './CommentPost.module.scss';
 
 interface CommentPostProps {
   user: {
-    fullname: string;
+    fullName: string;
   };
   text: string;
   post: {
@@ -43,7 +43,7 @@ export const CommentPost: React.FC<CommentPostProps> = ({ user, post, text }) =>
         open={Boolean(anchorEl)}
         onClose={handleClose}>
         <MenuItem onClick={handleClose}>Удалить</MenuItem>
-        <MenuItem onClick={handleClose}>Редактировать</MenuItem>
+        <MenuItem onClick={handleClose}>Редактировать1</MenuItem>
       </Menu>
     </Paper>
   );
