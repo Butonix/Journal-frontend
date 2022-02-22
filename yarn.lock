@@ -1061,14 +1061,18 @@
   dependencies:
     "@date-io/core" "^2.13.1"
 
-"@editorjs/editorjs@^2.22.2":
-  "integrity" "sha512-rPCv7Z5LZebreQaaL4DZuWzoVGEqwB+P7BF1dsefGQNBmLyeLF412topeW2b6e+g4l1oQ7t75kCOACNTEyYYIA=="
-  "resolved" "https://registry.npmjs.org/@editorjs/editorjs/-/editorjs-2.22.2.tgz"
-  "version" "2.22.2"
+"@editorjs/code@^2.7.0":
+  "integrity" "sha512-gXtTce915fHp3H9i4IqhTxEDbbkT2heFfYiW/bhFHsCmZDpyGzfZxi94kmrEqDmbxXjV49ZZ6GZbR26If13KJw=="
+  "resolved" "https://registry.npmjs.org/@editorjs/code/-/code-2.7.0.tgz"
+  "version" "2.7.0"
+
+"@editorjs/editorjs@2.19.3":
+  "integrity" "sha512-2IdR164W1csszDZmtCu91q0q7iQ39BBl82bGlNGaXTEiVLr0sySPcmM7v/3DITldEjE+Uovupclba8YAi40KKQ=="
+  "resolved" "https://registry.npmjs.org/@editorjs/editorjs/-/editorjs-2.19.3.tgz"
+  "version" "2.19.3"
   dependencies:
     "codex-notifier" "^1.1.2"
-    "codex-tooltip" "^1.0.2"
-    "nanoid" "^3.1.22"
+    "codex-tooltip" "^1.0.1"
 
 "@editorjs/image@^2.6.2":
   "integrity" "sha512-lai6LFJ8m3qRmSjio66o0CX7/75OupC3FQ5JWrV/biRT6GvUHtRNWKaMowKcC2ndXtfs4w6WwRxcXlB4WhUAdg=="
@@ -2178,7 +2182,7 @@
   "resolved" "https://registry.npmjs.org/codex-notifier/-/codex-notifier-1.1.2.tgz"
   "version" "1.1.2"
 
-"codex-tooltip@^1.0.2":
+"codex-tooltip@^1.0.1":
   "integrity" "sha512-Ud+N+y8PMIa9xGyKuo2j3q8QlfTzkMWQ5KeRrbCDerwVn7xq45nqPKQCFBXEMV0YI42/OqSMnsxP8MyVAyVhnA=="
   "resolved" "https://registry.npmjs.org/codex-tooltip/-/codex-tooltip-1.0.4.tgz"
   "version" "1.0.4"
@@ -3712,7 +3716,7 @@
   "resolved" "https://registry.npmjs.org/nanoclone/-/nanoclone-0.2.1.tgz"
   "version" "0.2.1"
 
-"nanoid@^3.1.22", "nanoid@^3.1.23":
+"nanoid@^3.1.23":
   "integrity" "sha512-rdwtIXaXCLFAQbnfqDRnI6jaRHp9fTcYBjtFKE8eezcZ7LuLjhUaQGNeMXf1HmRoCH32CLz6XwX0TtxEOS/A3Q=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.1.25.tgz"
   "version" "3.1.25"

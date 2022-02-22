@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import EditorJS, {OutputData} from "@editorjs/editorjs";
 import ImageTool from '@editorjs/image';
+const CodeTool = require('@editorjs/code');
 
 
 interface EditorProps {
@@ -29,7 +30,8 @@ export const Editor: React.FC<EditorProps> = ({setBlocks, value}) => {
                         },
                         field: 'file'
                     }
-                }
+                },
+                code:CodeTool
             },
             minHeight: 50
         })

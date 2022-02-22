@@ -24,6 +24,10 @@ export const FullPost = ({article}) => {
                                 return <Typography className={styles.paragraph} key={el.id}>
                                     {el.data.text}
                                 </Typography>
+                            } else if (el.type === 'code'){
+                                return <pre className={styles.code} key={el.id}>
+                                    {el.data.code}
+                                </pre>
                             }
                         }
                     )

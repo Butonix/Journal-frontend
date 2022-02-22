@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.22.2",
+    "@editorjs/code": "^2.7.0",
+    "@editorjs/editorjs": "2.19.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@hookform/resolvers": "^2.8.8",
