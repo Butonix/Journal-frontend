@@ -25,6 +25,8 @@ export interface LoginUserResponse {
     fullName: string
     id: number
     avatarUrl: string | null
+    about: string | null
+    link: string | null
 }
 
 export interface ArticleResponse {
@@ -37,8 +39,8 @@ export interface ArticleResponse {
     updatedAt: string
     createdAt: string
     user: LoginUserResponse
-    likes: Array<number>|[]
-    dislikes: Array<number>|[]
+    likes: Array<number> | []
+    dislikes: Array<number> | []
 }
 
 export interface CreateCommentDto {

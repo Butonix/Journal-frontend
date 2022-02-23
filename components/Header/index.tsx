@@ -38,7 +38,7 @@ export const Header: React.FC = () => {
         <div>
             <Paper classes={{root: styles.root}} elevation={0}>
                 <div className={styles.leftSide}>
-                    <IconButton onClick={toggleLeftMenu}>
+                    <IconButton color='secondary' onClick={toggleLeftMenu}>
                         <MenuIcon/>
                     </IconButton>
                     <Link href="/">
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
                 </div>
 
                 <div className="d-flex align-center">
-                    <IconButton onClick={rightCommentVisible}>
+                    <IconButton  color='secondary' onClick={rightCommentVisible}>
                         <MessageIcon/>
                     </IconButton>
                     {userData
@@ -69,11 +69,11 @@ export const Header: React.FC = () => {
                                 >
                                     {userData.fullName[0]}
                                 </Avatar>
-                                <ArrowBottom/>
+                                <ArrowBottom color='secondary'/>
                             </a>
                         </Link>
                         : <div className={styles.loginButton} onClick={handleClickOpen}>
-                            <UserIcon/>
+                            <UserIcon  color='secondary'/>
                             Войти
                         </div>
 

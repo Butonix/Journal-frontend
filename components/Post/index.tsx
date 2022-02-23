@@ -24,10 +24,9 @@ export const Post: React.FC<PostProps> = ({
                                               description, tags, imageUrl,
                                               user, likes, dislikes, ...obj
                                           }) => {
-    const firstImage = obj['body']?.filter(el => el.type === 'image')?.map(el => el.data.file.url)
-    //const images = obj['body']?.data.file.url
+    const images = obj['body']?.filter(el => el.type === 'image')?.map(el => el.data.file.url)
     return (
-        <Paper elevation={0} className="p-40" classes={{root: styles.paper}}>
+        <Paper elevation={8} className="p-40" classes={{root: styles.paper}}>
             <div className={styles.postWrapper}>
                 <div className={styles.postHeader}>
                     <Link href={`/users/${user.id}`}>
@@ -53,8 +52,8 @@ export const Post: React.FC<PostProps> = ({
                 <Typography className="mt-10 mb-15">
                     {description}
                 </Typography>
-                {!!firstImage &&
-                    <div className={styles.imageContainer}>{firstImage.map(el => < img src={el} alt=""/>)}</div>}
+                {!!images &&
+                    <div className={styles.imageContainer}>{images.map(el => < img key={el} src={el} alt=""/>)}</div>}
                 <PostActions likes={likes} dislikes={dislikes} removeArticleHandler={removeArticleHandler}
                              articleId={id} userId={user.id}/>
             </div>

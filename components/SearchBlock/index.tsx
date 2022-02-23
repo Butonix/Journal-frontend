@@ -33,10 +33,10 @@ export const SearchBlock = () => {
             {
                 !searchOption &&
                 <div className={styles.searchOptionButtonWrapper}>
-                    <IconButton onClick={toggleOption('users')}>
+                    <IconButton color='secondary' onClick={toggleOption('users')}>
                         <PersonSearchIcon/>
                     </IconButton >
-                    <IconButton onClick={toggleOption('articles')}>
+                    <IconButton color='secondary' onClick={toggleOption('articles')}>
                         <ManageSearchIcon/>
                     </IconButton>
                 </div>

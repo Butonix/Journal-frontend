@@ -27,6 +27,7 @@ export const CommentPost: React.FC<CommentPostProps> = ({ user, post, text }) =>
 
   return (
     <Paper elevation={0} className="p-20" classes={{ root: styles.paper }}>
+      123
       <Typography variant="h6" className={styles.title}>
         <a href="#">{post.title}</a>
         <IconButton onClick={handleClick}>

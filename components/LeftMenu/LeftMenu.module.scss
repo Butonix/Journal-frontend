@@ -3,7 +3,9 @@
   position: sticky;
   top: 80px;
   padding-right: 20px;
-
+  @media(max-width: 740px) {
+    display: none;
+  }
 
   ul {
     list-style: none;

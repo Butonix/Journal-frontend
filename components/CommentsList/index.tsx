@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import { Api } from "../../utils/api";
-import {CommentItem} from "../SideComments";
+import {CommentItem} from "../CommentItem";
 
-export const CommentsList = ({userId}) => {
-    const [comments,setComments] = useState([])
+export const CommentsList = ({userId,initialComments}) => {
+    const [comments,setComments] = useState(initialComments)
     useEffect(()=>{
         (async ()=>{
             const response = await Api().comment.getCommentsByUserId(userId)

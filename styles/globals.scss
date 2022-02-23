@@ -21,10 +21,10 @@ a {
 .content {
   margin: 0 auto;
   min-height: 100%;
-  width: clamp(720px,1000px,1240px);
+  width:75%;
 
   &--full {
-    width: clamp(720px,1000px,1240px);
+    width:75%;
   }
 }
 

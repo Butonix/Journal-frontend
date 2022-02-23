@@ -16,10 +16,10 @@ export const SearchArticles = ({articlesData,searchHandler, searchStr, setSearch
                     <SearchIcon/>
                     <input value={searchStr} onChange={e => setSearchStr(e.target.value)} placeholder="Поиск"/>
                 </div>
-                <IconButton onClick={searchHandler}>
+                <IconButton color='secondary' onClick={searchHandler}>
                     <Send/>
                 </IconButton>
-                <IconButton onClick={toggleOption}>
+                <IconButton color='secondary' onClick={toggleOption}>
                     <SearchOffIcon/>
                 </IconButton>
             </div>

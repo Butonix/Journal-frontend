@@ -27,7 +27,7 @@ interface ProfilePageProps {
     password?: string
 }
 
-export default function Profile({user}) {
+export default function Profile({user,comments}) {
     const [tabIndex, setTabIndex] = useState('0');
     const handleChange = (event, newValue) => {
         setTabIndex(newValue);
@@ -38,16 +38,39 @@ export default function Profile({user}) {
         <MainLayout contentFullWidth hideComments>
             <Paper className="pl-20 pr-20 pt-20 mb-5" elevation={0}>
                 <div className="d-flex justify-between">
+                    <Avatar
+                        src={user.avatarUrl}
+                        style={{width: 300, height: 300, borderRadius: 6}}
+                    >
+                        {!!user.fullName && user?.fullName[0]}
+                    </Avatar>
                     <div className='mb-25'>
-                        <Avatar
-                            src={user.avatarUrl}
-                            style={{width: 150, height: 150, borderRadius: 6}}
-                        >
-                            {!!user.fullName && user?.fullName[0]}
-                        </Avatar>
                         <Typography style={{fontWeight: 'bold'}} className="mt-20" variant="h4">
                             {!!user.fullName && user.fullName}
                         </Typography>
+                        <div>
+                            <div>
+                                <Link href={`/users/${user.id}/following`}>
+                                    <a>
+                                        <span >Подписки:</span> <span>{user.following.length}</span>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div>
+                                <Link href={`/users/${user.id}/followers`}>
+                                    <a>
+                                        <span>Подписчики:</span> <span>{user.followers.length}</span>
+                                    </a>
+                                </Link>
+                            </div>
+                            <div>
+                                <span>Обо мне:</span> {user.about}
+                            </div>
+                            <div>
+                                <span>Ссылка:</span> {user.link}
+                            </div>
+
+                        </div>
                     </div>
                     <div>
                         {currentUser && user.id === currentUser.id &&
@@ -61,45 +84,29 @@ export default function Profile({user}) {
                         {!currentUser?.id === user.id && <FollowButton id={user.id}/>}
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <Link href={`/users/${user.id}/following`}>
-                            <a>
-                                Подписки <span>{user.following.length}</span>
-                            </a>
-                        </Link>
-                    </div>
-                    <div>
-                        <Link href={`/users/${user.id}/followers`}>
-                            <a>
-                                Подписчики <span>{user.followers.length}</span>
-                            </a>
-                        </Link>
-                    </div>
 
-                </div>
-                <Typography>На проекте с 15 сен 2016</Typography>
-               <Box>
-                   <TabContext value={tabIndex}>
-                       <TabList onChange={handleChange} indicatorColor="primary" textColor="primary" variant="fullWidth">
-                           <Tab label="Статьи" value={'0'} />
-                           <Tab label="Комментарии" value={'1'}/>
-                       </TabList>
-                       <TabPanel value="0">
-                           <div className="d-flex align-start">
-                               <div className="flex">
-                                   {
-                                       user.articles.map(el => <Post key={el.id} title={el.title} user={user}
-                                                                     description={el.description} id={el.id} {...el}/>)
-                                   }
-                               </div>
-                           </div>
-                       </TabPanel>
-                       <TabPanel value="1">
-                           <CommentsList userId={user.id}/>
-                       </TabPanel>
-                   </TabContext>
-               </Box>
+                <Box>
+                    <TabContext value={tabIndex}>
+                        <TabList onChange={handleChange} indicatorColor="primary" textColor="primary"
+                                 variant="fullWidth">
+                            <Tab label="Статьи" value={'0'}/>
+                            <Tab label="Комментарии" value={'1'}/>
+                        </TabList>
+                        <TabPanel value="0">
+                            <div className="d-flex align-start">
+                                <div className="flex">
+                                    {
+                                        user.articles.map(el => <Post key={el.id} title={el.title} user={user}
+                                                                      description={el.description} id={el.id} {...el}/>)
+                                    }
+                                </div>
+                            </div>
+                        </TabPanel>
+                        <TabPanel value="1">
+                            <CommentsList initialComments={comments} userId={user.id}/>
+                        </TabPanel>
+                    </TabContext>
+                </Box>
             </Paper>
         </MainLayout>
     );
@@ -108,8 +115,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
         const id = ctx.params.id
         const user = await Api().users.getUserData(+id)
+        const comments = await Api().comment.getCommentsByUserId(+ctx.params.id)
         return {
-            props: {user}
+            props: {user,comments}
         }
     } catch (e) {
         return {

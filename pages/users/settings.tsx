@@ -11,14 +11,16 @@ export default function Settings() {
     const [avatarUrl, setAvatarUrl] = useState(userData.avatarUrl)
     const [fullName, setFullName] = useState(userData.fullName)
     const [email, setEmail] = useState(userData.email)
+    const [about, setAbout] = useState(userData.about || '')
+    const [link, setLink] = useState(userData.link || '')
     const [isLoading, setIsLoading] = useState(false)
 
 
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await Api().users.editUserProfile({avatarUrl,fullName,email})
-        }catch (e) {
+            const response = await Api().users.editUserProfile({avatarUrl, fullName, email, about, link})
+        } catch (e) {
             alert('123')
         }
     }
@@ -33,7 +35,7 @@ export default function Settings() {
                 }
             })
             setAvatarUrl(data.file.url)
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
         setIsLoading(false)
@@ -46,7 +48,7 @@ export default function Settings() {
                 <form onSubmit={onSubmit}>
                     <TextField
                         value={fullName}
-                        onChange={e=>setFullName(e.target.value)}
+                        onChange={e => setFullName(e.target.value)}
                         className="mb-20"
                         fullWidth
                         required
@@ -54,10 +56,25 @@ export default function Settings() {
                     />
                     <TextField
                         value={email}
-                        onChange={e=>setEmail(e.target.value)}
+                        onChange={e => setEmail(e.target.value)}
                         className="mb-20"
                         fullWidth
                         label='email'
+                        required
+                    />
+                    <TextField
+                        value={about}
+                        onChange={e => setAbout(e.target.value)}
+                        className="mb-20"
+                        fullWidth
+                        label='О себе'
+                    />
+                    <TextField
+                        value={link}
+                        onChange={e => setLink(e.target.value)}
+                        className="mb-20"
+                        fullWidth
+                        label='Ссылка'
                         required
                     />
                     <Input type='file' onChange={e => uploadImage(e)}/>

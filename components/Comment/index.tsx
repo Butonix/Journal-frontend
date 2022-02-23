@@ -3,7 +3,7 @@ import {Avatar, IconButton, Menu, MenuItem, Typography} from '@material-ui/core'
 import MoreIcon from '@material-ui/icons/MoreHorizOutlined';
 
 import styles from './Comment.module.scss';
-import {CommentResponse, LoginUserResponse} from "../../utils/api/types";
+import {LoginUserResponse} from "../../utils/api/types";
 import {useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
 import {Api} from "../../utils/api";
@@ -33,30 +33,33 @@ export const Comment: React.FC<CommentProps> = ({user, text, createdAt, id, onRe
     }
     return (
         <div className={styles.comment}>
-            <div className={styles.userInfo}>
-                <Avatar
-                    src={user.avatarUrl}
-                    alt="Avatar"
-                >{user.fullName[0]}</Avatar>
-                <b>{user.fullName}</b>
+            <div className={styles.commentHeader}>
+                <div className={styles.commentUserInfo}>
+                    <Avatar
+                        src={user.avatarUrl}
+                        alt="Avatar"
+                    >{user.fullName[0]}</Avatar>
+                    <b>{user.fullName}</b>
+                </div>
                 <span>{createdAt}</span>
+                {currentUserId === user.id && <>
+                    <IconButton onClick={handleClick}>
+                        <MoreIcon/>
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        elevation={2}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                        keepMounted>
+                        <MenuItem onClick={() => onRemoveComment(id)}>Удалить</MenuItem>
+                    </Menu>
+                </>}
             </div>
             <Typography className={styles.text}>
                 {text}
             </Typography>
-            {currentUserId === user.id && <>
-                <IconButton onClick={handleClick}>
-                    <MoreIcon/>
-                </IconButton>
-                <Menu
-                    anchorEl={anchorEl}
-                    elevation={2}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                    keepMounted>
-                    <MenuItem onClick={() => onRemoveComment(id)}>Удалить</MenuItem>
-                </Menu>
-            </>}
+
         </div>
     );
 };

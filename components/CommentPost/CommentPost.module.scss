@@ -1,3 +1,8 @@
+.commentPostWrapper{
+  @media(max-width: 900px) {
+    display: none;
+  }
+}
 .title {
   display: flex;
   justify-content: space-between;
@@ -9,4 +14,7 @@
 .paper {
   border-radius: 8px !important;
   margin-bottom: 30px;
+  @media(max-width: 900px) {
+    display: none;
+  }
 }
