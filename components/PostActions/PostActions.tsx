@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import {IconButton} from '@material-ui/core';
+import Link from 'next/link';
+import styles from './PostActions.module.scss'
+import {IconButton} from '@mui/material';
 import {
     BookmarkBorderOutlined,
     DeleteForeverOutlined,
@@ -7,12 +9,11 @@ import {
     ModeCommentOutlined as CommentsIcon,
     ThumbDownOutlined,
     ThumbUpOutlined
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import {useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
-import Link from 'next/link';
 import {Api} from "../../utils/api";
-import styles from './PostActions.module.scss'
+
 
 interface PostActionProps {
     userId: number

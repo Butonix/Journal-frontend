@@ -1,13 +1,14 @@
 import style from "../AuthDialog.module.scss";
-import {setCookie} from 'nookies';
-import {Button, TextField} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
+import {setCookie} from 'nookies';
 import {LoginSchema} from "../../../utils/schemas/loginSchema";
 import {LoginUserDto} from "../../../utils/api/types";
-import {Api, AuthService} from "../../../utils/api";
+import {Api} from "../../../utils/api";
 import {useAppDispatch} from "../../../redux/hooks";
 import {setUserData} from "../../../redux/slices/user";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 export const AuthFormLogin = ({setForm}) => {
     const dispatch = useAppDispatch()
@@ -24,7 +25,7 @@ export const AuthFormLogin = ({setForm}) => {
             })
             dispatch(setUserData(data))
         } catch (e) {
-            alert('sorry')
+            console.log(e, 'error AuthFormLogin')
         }
     }
     return (

@@ -17,7 +17,7 @@ export interface LoginUserDto {
     password: string
 }
 
-export interface LoginUserResponse {
+export interface UserResponse {
     access_token: string
     email: string
     following: Array<number> | []
@@ -38,7 +38,7 @@ export interface ArticleResponse {
     views: number
     updatedAt: string
     createdAt: string
-    user: LoginUserResponse
+    user: UserResponse
     likes: Array<number> | []
     dislikes: Array<number> | []
 }
@@ -52,15 +52,15 @@ export interface CommentResponse {
     id: number
     text: string
     article: ArticleResponse
-    user: LoginUserResponse
+    user: UserResponse
     createdAt: string
     updatedAt: string
 }
 
-export interface UserResponse {
-    fullName?: string
-    email?: string
-    followers?: Array<number>
-    id?: number
-    password?: string
-}
+// export interface UserResponse {
+//     fullName?: string
+//     email?: string
+//     followers?: Array<number>
+//     id?: number
+//     password?: string
+// }

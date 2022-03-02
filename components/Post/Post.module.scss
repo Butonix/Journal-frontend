@@ -35,7 +35,11 @@
   }
   .postHeaderUser{
     display: flex;
+    align-items: center;
     gap: 10px;
     cursor: pointer;
+    p{
+      font-size: 16px;
+    }
   }
 }

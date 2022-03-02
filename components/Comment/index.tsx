@@ -3,7 +3,7 @@ import {Avatar, IconButton, Menu, MenuItem, Typography} from '@material-ui/core'
 import MoreIcon from '@material-ui/icons/MoreHorizOutlined';
 
 import styles from './Comment.module.scss';
-import {LoginUserResponse} from "../../utils/api/types";
+import {UserResponse} from "../../utils/api/types";
 import {useAppSelector} from "../../redux/hooks";
 import {selectUserData} from "../../redux/slices/user";
 import {Api} from "../../utils/api";
@@ -12,7 +12,7 @@ export interface CommentProps {
     text: string
     id: number
     createdAt: string
-    user: LoginUserResponse
+    user: UserResponse
     onRemoveHandler: (id: number) => void
 }
 

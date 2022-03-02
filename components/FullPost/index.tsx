@@ -1,13 +1,16 @@
-import {Avatar, Button, Paper, Typography} from '@material-ui/core';
 import React from 'react';
-import {PostActions} from '../PostActions/PostActions';
-import MessageIcon from '@material-ui/icons/TextsmsOutlined';
-import UserAddIcon from '@material-ui/icons/PersonAddOutlined';
-
 import styles from './FullPost.module.scss';
-import {FollowButton} from "../FollowButton";
 
-export const FullPost = ({article}) => {
+import {PostActions} from '../PostActions/PostActions';
+import {FollowButton} from "../FollowButton";
+import {ArticleResponse} from "../../utils/api/types";
+import {Avatar, Paper, Typography } from '@mui/material';
+
+interface FullPostProps {
+    article: ArticleResponse | any
+}
+
+export const FullPost: React.FC<FullPostProps> = ({article}) => {
     return (
         <Paper elevation={2} className={styles.paper}>
             <div style={{margin: '0 auto', width: 680}}>
@@ -25,7 +28,7 @@ export const FullPost = ({article}) => {
                                 return <Typography className={styles.paragraph} key={el.id}>
                                     {el.data.text}
                                 </Typography>
-                            } else if (el.type === 'code'){
+                            } else if (el.type === 'code') {
                                 return <pre className={styles.code} key={el.id}>
                                     {el.data.code}
                                 </pre>
@@ -49,7 +52,7 @@ export const FullPost = ({article}) => {
                             <b>{article.user.fullName}</b>
                         </div>
                         <div>
-                           <FollowButton id={article.user.id}/>
+                            <FollowButton id={article.user.id}/>
                         </div>
                     </div>
                 </div>

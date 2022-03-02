@@ -1,5 +1,5 @@
-import {Divider, Paper, Tab, Tabs, Typography} from "@material-ui/core";
-import {Comment, CommentProps} from "../Comment";
+import {Divider, Paper, Typography} from "@material-ui/core";
+import {Comment} from "../Comment";
 import React, {useEffect, useState} from "react";
 import {AddCommentForm} from "../AddCommentForm";
 import {Api} from "../../utils/api";
@@ -12,15 +12,17 @@ interface PostCommentsProps {
 
 export const PostComments: React.FC<PostCommentsProps> = ({articleId}) => {
     const [comments, setComments] = useState<CommentResponse[]>([])
-    useEffect( () => {
+
+    useEffect(() => {
         Api().comment.getComments(articleId)
-            .then(comments=>setComments(comments))
+            .then(comments => setComments(comments))
     }, [])
+
     const onAddComment = (newComment) => {
-        setComments(prev=>[newComment,...prev])
+        setComments(prev => [newComment, ...prev])
     }
     const onRemoveHandler = (id) => {
-        setComments(prev=>[...prev.filter(el=>el.id !== id)])
+        setComments(prev => [...prev.filter(el => el.id !== id)])
     }
     return (
         <Paper elevation={0} className="mt-40 p-30">

@@ -1,5 +1,5 @@
 import styles from './WriteForm.module.scss'
-import {Input, Button, TextField} from "@material-ui/core";
+import {Button, TextField} from "@material-ui/core";
 import {NextPage} from "next";
 import dynamic from "next/dynamic";
 import MessageIcon from "@material-ui/icons/TextsmsOutlined";

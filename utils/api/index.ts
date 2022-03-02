@@ -7,7 +7,7 @@ import {
     CreateCommentDto,
     CreateUserDto,
     LoginUserDto,
-    LoginUserResponse, UserResponse
+    UserResponse
 } from "./types";
 
 
@@ -36,12 +36,12 @@ export const AuthService = (instance: AxiosInstance) => ({
         return data
     },
 
-    async login(dto: LoginUserDto): Promise<LoginUserResponse> {
+    async login(dto: LoginUserDto): Promise<UserResponse> {
         const {data} = await instance.post('auth/login', dto)
         return data
     },
 
-    async getMe(): Promise<LoginUserResponse> {
+    async getMe(): Promise<UserResponse> {
         const {data} = await instance.get('users/me')
         return data
     },
@@ -90,6 +90,10 @@ export const ArticleService = (instance: AxiosInstance) => ({
         const {data} = await instance.get<ArticleResponse>(`articles/search/?take=${take}&page=${page}&title=${title}`)
         return data
     },
+    async getArticlesByUserId(userId: number,take:number = 10, page:number = 1):Promise<[Array<ArticleResponse>,number]> {
+        const {data} = await instance.get(`articles/u?userId=${userId}&take=${take}&page=${page}`)
+        return data
+    }
 })
 
 export const CommentsService = (instance: AxiosInstance) => ({
@@ -97,12 +101,12 @@ export const CommentsService = (instance: AxiosInstance) => ({
         const {data} = await instance.post<CreateCommentDto, { data: CommentResponse }>('comments', comment)
         return data
     },
-    async getComments(articleId?:number) {
+    async getComments(articleId?: number) {
         const {data} = await instance.get<number, { data: Array<CommentResponse> }>(articleId ? `comments?articleId=${articleId}` : `comments`)
         return data
     },
-    async getCommentsByUserId(userId?:number) {
-        const {data} = await instance.get<number, { data: Array<CommentResponse> }>( `comments/u?userId=${userId}`)
+    async getCommentsByUserId(userId?: number) {
+        const {data} = await instance.get<number, { data: Array<CommentResponse> }>(`comments/u?userId=${userId}`)
         return data
     },
     async removeComment(commentId) {

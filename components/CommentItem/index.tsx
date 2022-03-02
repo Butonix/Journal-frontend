@@ -1,10 +1,10 @@
 import { Paper, Avatar } from '@mui/material';
 import React from 'react'
-import { LoginUserResponse } from '../../utils/api/types';
+import { UserResponse } from '../../utils/api/types';
 import styles from './CommentItem.module.scss'
 
 interface CommentItemProps {
-    user: LoginUserResponse
+    user: UserResponse
     text: string;
     title: string
 }
@@ -16,7 +16,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({user, text,title}) => {
                 <Avatar src={user.avatarUrl} >
                     {user.fullName[0]}
                 </Avatar>
-                <a href="#">
+                <a href={`/users/${user.id}`}>
                     <b>{user.fullName}</b>
                 </a>
             </div>

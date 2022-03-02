@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Avatar, Button, Paper, Typography} from '@material-ui/core';
+import {Avatar, Button, Paper, Typography} from '@mui/material';
 import {TabContext, TabList, TabPanel} from '@mui/lab';
 import Tab from '@mui/material/Tab';
 import {SettingsOutlined as SettingsIcon} from '@material-ui/icons';
@@ -8,12 +8,12 @@ import {Api} from "../../../utils/api";
 import {GetServerSideProps} from "next";
 import {useAppSelector} from "../../../redux/hooks";
 import {selectUserData} from "../../../redux/slices/user";
-import {Post} from "../../../components/Post";
 import {ArticleResponse} from "../../../utils/api/types";
 import {FollowButton} from "../../../components/FollowButton";
 import {useState} from 'react';
 import {CommentsList} from "../../../components/CommentsList";
 import Box from '@mui/material/Box';
+import {ArticlesList} from '../../../components/ArticlesList';
 
 
 interface ProfilePageProps {
@@ -27,16 +27,20 @@ interface ProfilePageProps {
     password?: string
 }
 
-export default function Profile({user,comments}) {
+export default function Profile({user, comments, articles, articlesCount}) {
+
     const [tabIndex, setTabIndex] = useState('0');
     const handleChange = (event, newValue) => {
         setTabIndex(newValue);
     };
     const currentUser = useAppSelector(selectUserData)
-
+    const requestArticles = async (take: number, currentPage: number): Promise<[Array<ArticleResponse>, number]> => {
+        const [data, count] = await Api().article.getArticlesByUserId(user.id, take, currentPage)
+        return [data, count]
+    }
     return (
-        <MainLayout contentFullWidth hideComments>
-            <Paper className="pl-20 pr-20 pt-20 mb-5" elevation={0}>
+        <MainLayout contentFullWidth>
+            <Paper className='p-20'>
                 <div className="d-flex justify-between">
                     <Avatar
                         src={user.avatarUrl}
@@ -52,7 +56,7 @@ export default function Profile({user,comments}) {
                             <div>
                                 <Link href={`/users/${user.id}/following`}>
                                     <a>
-                                        <span >Подписки:</span> <span>{user.following.length}</span>
+                                        <span>Подписки:</span> <span>{user.following.length}</span>
                                     </a>
                                 </Link>
                             </div>
@@ -75,49 +79,52 @@ export default function Profile({user,comments}) {
                     <div>
                         {currentUser && user.id === currentUser.id &&
                             <Link href='/users/settings'>
-                                <Button
-                                    style={{height: 42, minWidth: 45, width: 45, marginRight: 10}}
-                                    variant="contained">
+                                <Button>
                                     <SettingsIcon/>
                                 </Button>
                             </Link>}
                         {!currentUser?.id === user.id && <FollowButton id={user.id}/>}
                     </div>
                 </div>
-
-                <Box>
-                    <TabContext value={tabIndex}>
+            </Paper>
+            <Box>
+                <TabContext value={tabIndex}>
+                    <Paper>
                         <TabList onChange={handleChange} indicatorColor="primary" textColor="primary"
                                  variant="fullWidth">
                             <Tab label="Статьи" value={'0'}/>
                             <Tab label="Комментарии" value={'1'}/>
                         </TabList>
-                        <TabPanel value="0">
-                            <div className="d-flex align-start">
-                                <div className="flex">
-                                    {
-                                        user.articles.map(el => <Post key={el.id} title={el.title} user={user}
-                                                                      description={el.description} id={el.id} {...el}/>)
-                                    }
-                                </div>
+                    </Paper>
+                    <TabPanel value="0">
+                        <div className="d-flex align-start">
+                            <div className="flex">
+                                {
+                                    <ArticlesList articles={articles}
+                                                  count={articlesCount}
+                                                  requestHandler={requestArticles}/>
+                                }
                             </div>
-                        </TabPanel>
-                        <TabPanel value="1">
-                            <CommentsList initialComments={comments} userId={user.id}/>
-                        </TabPanel>
-                    </TabContext>
-                </Box>
-            </Paper>
+                        </div>
+                    </TabPanel>
+                    <TabPanel value="1">
+                        <CommentsList initialComments={comments} userId={user.id}/>
+                    </TabPanel>
+                </TabContext>
+            </Box>
         </MainLayout>
     );
 }
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
-        const id = ctx.params.id
-        const user = await Api().users.getUserData(+id)
-        const comments = await Api().comment.getCommentsByUserId(+ctx.params.id)
+        const id = +ctx.params.id
+
+        const user = await Api().users.getUserData(id)
+        const comments = await Api().comment.getCommentsByUserId(id)
+        const [articles, articlesCount] = await Api().article.getArticlesByUserId(id)
+
         return {
-            props: {user,comments}
+            props: {user, comments, articles, articlesCount}
         }
     } catch (e) {
         return {

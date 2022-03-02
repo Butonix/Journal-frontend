@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
-import {Button} from '@material-ui/core';
+import {Button} from '@mui/material';
 import {
     FormatListBulletedOutlined as ListIcon,
     PeopleAltOutlined as UsersIcon,
-    WhatshotOutlined as FireIcon,
+    RecentActorsOutlined,
     StarBorder,
-    RecentActorsOutlined
+    WhatshotOutlined as FireIcon
 } from '@material-ui/icons';
 
 import styles from './LeftMenu.module.scss';
@@ -31,16 +31,16 @@ export const LeftMenu: React.FC = () => {
             <ul>
                 {menu.map((obj) => (
                     <li key={obj.path}>
-                       <Paper>
-                           <Link href={obj.path}>
-                               <a>
-                                   <Button variant={router.pathname === obj.path ? 'outlined' : 'text'}>
-                                       {obj.icon}
-                                       {obj.text}
-                                   </Button>
-                               </a>
-                           </Link>
-                       </Paper>
+                        <Paper>
+                            <Link href={obj.path}>
+                                <a>
+                                    <Button color={"primary"} variant={router.pathname === obj.path ? 'outlined' : 'text'}>
+                                        {obj.icon}
+                                        {obj.text}
+                                    </Button>
+                                </a>
+                            </Link>
+                        </Paper>
                     </li>
                 ))}
             </ul>

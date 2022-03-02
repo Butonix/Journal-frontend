@@ -1,13 +1,11 @@
+import React, {useState} from "react";
 import styles from './SearchBlock.module.scss'
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
-import {IconButton} from "@material-ui/core";
-import React, {useState} from "react";
+import {IconButton} from "@mui/material";
 import {Api} from "../../utils/api";
 import {SearchUsers} from "./SearchUsers";
 import {SearchArticles} from "./SearchArticles";
-import {theme} from "../../theme";
 
 export const SearchBlock = () => {
     const [searchOption, setSearchOption] = useState<'users' | 'articles' | null>(null)
@@ -33,10 +31,10 @@ export const SearchBlock = () => {
             {
                 !searchOption &&
                 <div className={styles.searchOptionButtonWrapper}>
-                    <IconButton color='secondary' onClick={toggleOption('users')}>
+                    <IconButton style={{color:'#fff'}} onClick={toggleOption('users')}>
                         <PersonSearchIcon/>
-                    </IconButton >
-                    <IconButton color='secondary' onClick={toggleOption('articles')}>
+                    </IconButton>
+                    <IconButton style={{color:'#fff'}} onClick={toggleOption('articles')}>
                         <ManageSearchIcon/>
                     </IconButton>
                 </div>

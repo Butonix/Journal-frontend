@@ -1,21 +1,26 @@
 import {Dialog} from '@material-ui/core'
-import {useState} from "react";
+import React, {useState} from "react";
 import {AuthFormMain} from "./forms/AuthFormMain";
 import {AuthFormRegistration} from "./forms/AuthFormRegistration";
 import {AuthFormLogin} from "./forms/AuthFormLogin";
 
-export const AuthDialog = ({open, close}) => {
+interface AuthDialogProps {
+    open: boolean
+    close: () => void
+}
+
+export const AuthDialog: React.FC<AuthDialogProps> = ({open, close}) => {
 
     const [form, setForm] = useState<'main' | 'registration' | 'login'>('main')
 
     return (
         <div>
             <Dialog
+                open={open}
+                onClose={close}
                 fullWidth
                 maxWidth='xs'
-                open={open}
                 keepMounted
-                onClose={close}
                 aria-describedby="alert-dialog-slide-description"
             >
                 {form === 'main' && <AuthFormMain close={close} setForm={setForm}/>}

@@ -1,8 +1,10 @@
-.listItemUser{
+.listItemUser {
   display: flex;
-  gap: 10px;
+  gap: 24px;
   align-items: center;
-  span{
-    font-weight: 700;
+
+  span {
+    font-weight: 600;
+    font-size: 20px;
   }
 }

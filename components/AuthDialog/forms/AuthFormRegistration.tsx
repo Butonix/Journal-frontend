@@ -1,22 +1,23 @@
 import style from "../AuthDialog.module.scss";
-import {Button, TextField} from "@material-ui/core";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {RegistrationSchema} from "../../../utils/schemas/RegistrationSchema";
-import {Api, AuthService} from "../../../utils/api";
+import {Api} from "../../../utils/api";
 import {CreateUserDto} from "../../../utils/api/types";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 export const AuthFormRegistration = ({setForm}) => {
     const form = useForm({
-        mode:'onSubmit',
+        mode: 'onSubmit',
         resolver: yupResolver(RegistrationSchema)
     })
 
-    const onSubmit = async (dto:CreateUserDto) => {
+    const onSubmit = async (dto: CreateUserDto) => {
         try {
             const data = await Api().auth.registration(dto)
-        }catch (e){
-            alert('sorry')
+        } catch (e) {
+            console.log(e, 'error AuthFormLogin')
         }
     }
     return (
@@ -37,11 +38,6 @@ export const AuthFormRegistration = ({setForm}) => {
                     error={!!form.formState.errors.password?.message}
                     helperText={form.formState.errors.password?.message}
                     variant='outlined' fullWidth placeholder='Пароль'/>
-                {/*<TextField*/}
-                {/*    {...form.register('password2')}*/}
-                {/*    error={!!form.formState.errors.password2?.message}*/}
-                {/*    helperText={form.formState.errors.password2?.message}*/}
-                {/*    variant='outlined' fullWidth placeholder='Повторите пароль'/>*/}
             </div>
             <div className={style.buttonWrapper}>
                 <Button variant='outlined' onClick={() => setForm('main')}>

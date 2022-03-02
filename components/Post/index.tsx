@@ -1,10 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
-import {Avatar, Button, Paper, Typography} from '@material-ui/core';
-
 import styles from './Post.module.scss';
+import Link from 'next/link';
+import {Avatar, Paper, Typography} from '@mui/material';
 import {PostActions} from '../PostActions/PostActions';
-import {LoginUserResponse} from "../../utils/api/types";
+import {UserResponse} from "../../utils/api/types";
 import {FollowButton} from '../FollowButton';
 
 interface PostProps {
@@ -13,16 +12,17 @@ interface PostProps {
     description: string
     tags?: Array<string>
     imageUrl?: string
-    user: LoginUserResponse
+    user: UserResponse
     likes: Array<number> | []
     dislikes: Array<number> | []
     removeArticleHandler: (id: number) => any
+    createdAt:string
 }
 
 export const Post: React.FC<PostProps> = ({
                                               removeArticleHandler, id, title,
                                               description, tags, imageUrl,
-                                              user, likes, dislikes, ...obj
+                                              user, likes, dislikes, createdAt, ...obj
                                           }) => {
     const images = obj['body']?.filter(el => el.type === 'image')?.map(el => el.data.file.url)
     return (
@@ -31,13 +31,13 @@ export const Post: React.FC<PostProps> = ({
                 <div className={styles.postHeader}>
                     <Link href={`/users/${user.id}`}>
                         <div className={styles.postHeaderUser}>
-                            <Avatar src={user.avatarUrl}>
+                            <Avatar style={{width:50,height:50}} src={user.avatarUrl}>
                                 {user.fullName}
                             </Avatar>
                             <p>{user.fullName}</p>
                         </div>
                     </Link>
-                    <p>time</p>
+                    <p>{createdAt}</p>
                     <FollowButton id={user.id}/>
                 </div>
                 <Typography variant="h5" className={styles.title}>
